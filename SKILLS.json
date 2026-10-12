@@ -1,0 +1,57 @@
+{
+  "format": 1,
+  "skills": [
+    {
+      "id": "tinywarden/disk-local",
+      "version": "1.1.5",
+      "name": "Disk space",
+      "description": "Reads space usage for each supported local filesystem and compares it with warning and critical thresholds. Writable filesystems determine attention; mounts that share capacity are identified. It does not check inodes, quotas or network filesystems.",
+      "content_sha256": "85508ff4165dc45bdbaecd4fd9e781b43e7b29d654ee0ab33a041f7d16c71642",
+      "archive": {
+        "tag": "disk-local-v1.1.5",
+        "asset": "disk-local-1.1.5.zip",
+        "sha256": "b68fbab4532789d7d8d1a69b31c1bf613b9c0e4110fbae75b691595b96f7c318",
+        "size": 14216
+      }
+    },
+    {
+      "id": "tinywarden/fstrim-status",
+      "version": "1.1.6",
+      "name": "Filesystem trim",
+      "description": "Checks whether automatic filesystem trim is scheduled and whether its last run completed successfully.",
+      "content_sha256": "d0f0b132e2a138884f1d390f8ee77cd7d3211a83730ff71e49894fb855972d11",
+      "archive": {
+        "tag": "fstrim-status-v1.1.6",
+        "asset": "fstrim-status-1.1.6.zip",
+        "sha256": "4f39185488593445f05f90ad57555cd3e4ea63cca159c34463ee393d5bf4c22b",
+        "size": 17959
+      }
+    },
+    {
+      "id": "tinywarden/package-updates",
+      "version": "1.1.6",
+      "name": "Package updates",
+      "description": "Simulates pending APT upgrades using the server\u2019s locally cached package lists. It does not install packages or refresh lists, and does not verify repository freshness or security-update counts.",
+      "content_sha256": "dbf7eacb1fc56e09d35fb2543e160966bbf4e71477b40e7a3742677983545f8f",
+      "archive": {
+        "tag": "package-updates-v1.1.6",
+        "asset": "package-updates-1.1.6.zip",
+        "sha256": "4de73207253cf717a7d2a6575fa1bc377fa59d4f503d43d6187408e98f2e8ebf",
+        "size": 14147
+      }
+    },
+    {
+      "id": "tinywarden/reboot-required",
+      "version": "1.1.5",
+      "name": "Reboot status",
+      "description": "Checks whether installed software has requested a reboot and lists the requesting packages when the server records them.",
+      "content_sha256": "e2de01bd80772f832b5d13c80e1f856d3b9131f9d5d34678fedefb4392fd4043",
+      "archive": {
+        "tag": "reboot-required-v1.1.5",
+        "asset": "reboot-required-1.1.5.zip",
+        "sha256": "e76c71c54318dac879094228a8f032cbc3a522f44ca34ba09d12d480a6eba825",
+        "size": 12134
+      }
+    }
+  ]
+}
