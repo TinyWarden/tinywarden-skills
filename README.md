@@ -4,7 +4,7 @@ Official monitoring skills for [TinyWarden](https://github.com/TinyWarden/tinywa
 Disk space, Filesystem trim, Package updates and Reboot status. Each package owns
 its Python code, settings, messages, notifications and display descriptor.
 
-In the app, open Skills → Browse. This repository is available by default.
+In the app, open Skills → Manage skills (`/skills/manage`). This repository is available by default.
 Installation adds a skill disabled; review its server access before enabling it.
 Updates are manual and preserve compatible settings and retained history.
 

@@ -16,7 +16,7 @@ replace a skill installed from a different source. Use a distinct namespace for
 forks. Author-supplied publisher names cannot grant the Official badge.
 
 The app supports 200 entries per repository, 512 KiB catalogue bytes, 10 MiB ZIPs,
-20 configured repositories and 100 installed skills. Browse pages contain 50 items.
+20 configured repositories and 100 installed skills. Catalogue pages contain 50 items.
 Names are at most 120 characters and descriptions at most 500. Versions are stable
 `major.minor.patch`; each component is at most nine digits. IDs follow the SDK's
 `namespace/slug` grammar. Release tags and ZIP names are bounded safe ASCII names,
