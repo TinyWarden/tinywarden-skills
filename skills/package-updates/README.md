@@ -26,6 +26,8 @@ Details displays package names, installed/available versions and planned upgrade
 new dependencies, removals or held-back packages using the shared table API.
 Only recognized `Inst`/`Remv` records and the held-back names stanza are extracted
 from the existing simulation. No additional command or access permission is used.
+APT action records ending with an empty `[]` marker are accepted too; these must
+not silently omit a package while its upgrade remains in the reported total.
 Missing versions appear as —; APT's held-back names alone do not supply versions
 or reasons. The list keeps at most 100 rows, labels truncation and reports partial
 parsing separately. Unrecognized details never alter authoritative counts or

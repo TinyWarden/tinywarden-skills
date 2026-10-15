@@ -68,6 +68,31 @@ Conf nano (8.4-1+deb13u1 Debian:13.7/stable [amd64])
         context = {'observation':observation,'now':1000,'evidence_expires_at':2000}
         timeline(skill.evaluate(context),context,metadata['catalog'])
 
+    def test_package_list_accepts_real_apt_empty_state_suffix(self):
+        skill = module('package-updates')
+        output = """2 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Inst curl [8.14.1-2+deb13u5] (8.14.1-2+deb13u7 Debian-Security:13/stable-security [amd64]) []
+Inst libcurl4t64 [8.14.1-2+deb13u5] (8.14.1-2+deb13u7 Debian-Security:13/stable-security [amd64])
+Conf curl (8.14.1-2+deb13u7 Debian-Security:13/stable-security [amd64])
+Conf libcurl4t64 (8.14.1-2+deb13u7 Debian-Security:13/stable-security [amd64])
+"""
+        class Host:
+            def request(self,*args): return {'exit_code':0,'stdout':output,'stderr_bytes':0}
+        observation = skill.collect({'package_mode':'upgrade'},Host())
+        self.assertEqual(observation['upgraded'],2)
+        self.assertEqual([row['package'] for row in observation['packages']],['curl','libcurl4t64'])
+        self.assertTrue(observation['package_list_complete'])
+        self.assertFalse(observation['package_list_truncated'])
+        for row in observation['packages']:
+            self.assertEqual(row['installed_version'],'8.14.1-2+deb13u5')
+            self.assertEqual(row['available_version'],'8.14.1-2+deb13u7')
+            self.assertEqual(row['action'],'upgraded')
+        metadata = load(ROOT/'skills/package-updates',official=True)
+        validate(metadata['schemas']['observation'],observation)
+        result = skill.evaluate({'observation':observation,'now':1000})[0]
+        self.assertEqual(result['status'],'warning')
+        self.assertEqual(next(fact for fact in result['facts'] if fact['key']=='package_list_note')['value'],'')
+
     def test_package_details_do_not_change_counts_or_expose_arbitrary_output(self):
         skill = module('package-updates')
         for output in ['Private repository token blah\n2 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.\nInst nano [8.4-1] (8.4-2 Debian [amd64])\n',

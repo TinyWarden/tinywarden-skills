@@ -8,7 +8,7 @@ HELPERS = ["/usr/bin/dpkg", "/usr/lib/apt/methods/mirror+file", "/usr/lib/apt/me
 SUMMARY = re.compile(r"^(0|[1-9][0-9]{0,6}) upgraded, (0|[1-9][0-9]{0,6}) newly installed, (0|[1-9][0-9]{0,6}) to remove and (0|[1-9][0-9]{0,6}) not upgraded\.$")
 NAME = r"[a-z0-9][a-z0-9+.-]*(?::[a-z0-9][a-z0-9-]*)?"
 VERSION = r"[A-Za-z0-9.+:~_-]+"
-INSTALL = re.compile(rf"^Inst ({NAME})(?: \[({VERSION})\])? \(({VERSION})(?: .*)?\)$")
+INSTALL = re.compile(rf"^Inst ({NAME})(?: \[({VERSION})\])? \(({VERSION})(?: .*)?\)(?: \[\])?$")
 REMOVE = re.compile(rf"^Remv ({NAME})(?: \[({VERSION})\])?(?: .*)?$")
 ROW_LIMIT = 100
 
