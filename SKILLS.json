@@ -42,15 +42,15 @@
     },
     {
       "id": "tinywarden/reboot-required",
-      "version": "1.1.5",
+      "version": "1.1.6",
       "name": "Reboot status",
       "description": "Checks whether installed software has requested a reboot and lists the requesting packages when the server records them.",
-      "content_sha256": "e2de01bd80772f832b5d13c80e1f856d3b9131f9d5d34678fedefb4392fd4043",
+      "content_sha256": "fe5feeba6b9ac55ae56180fd40afb56ea97cd45610a68982b05a9f673cbb9876",
       "archive": {
-        "tag": "reboot-required-v1.1.5",
-        "asset": "reboot-required-1.1.5.zip",
-        "sha256": "e76c71c54318dac879094228a8f032cbc3a522f44ca34ba09d12d480a6eba825",
-        "size": 12134
+        "tag": "reboot-required-v1.1.6",
+        "asset": "reboot-required-1.1.6.zip",
+        "sha256": "af2a81efe816c2e55888ebb0069d38dfbe76bcee3a6b358353cf6880c5390dc7",
+        "size": 12244
       }
     },
     {
