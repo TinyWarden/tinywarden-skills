@@ -52,6 +52,19 @@
         "sha256": "e76c71c54318dac879094228a8f032cbc3a522f44ca34ba09d12d480a6eba825",
         "size": 12134
       }
+    },
+    {
+      "id": "tinywarden/services",
+      "version": "1.0.0",
+      "name": "Services",
+      "description": "Monitors selected systemd services that should remain running. Discovery does not select services automatically.",
+      "content_sha256": "356f557e654565e75abdf75cc312630020ee69a14ecb47109aff14cf29ef2fcb",
+      "archive": {
+        "tag": "services-v1.0.0",
+        "asset": "services-1.0.0.zip",
+        "sha256": "59fb24e722e35f6a4fc4128f423c096e51135d98eda333b1f69d51c2c06615cc",
+        "size": 12644
+      }
     }
   ]
 }
