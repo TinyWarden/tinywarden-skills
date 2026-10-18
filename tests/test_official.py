@@ -225,6 +225,9 @@ Conf libcurl4t64 (8.14.1-2+deb13u7 Debian-Security:13/stable-security [amd64])
 
     def test_reboot_packages_preserve_request_and_discard_orphan_lists(self):
         skill=module('reboot-required');metadata=load(ROOT/'skills/reboot-required',official=True)
+        field=metadata['display']['dashboard']['fields'][0]
+        self.assertEqual(field['id'],'reboot_request')
+        self.assertEqual(metadata['display']['sources'][field['value']['fact']],{'kind':'boolean'})
         class Host:
             def __init__(self,markers,result):self.markers=iter(markers);self.result=result;self.reads=0
             def request(self,operation,args):
@@ -244,11 +247,13 @@ Conf libcurl4t64 (8.14.1-2+deb13u7 Debian-Security:13/stable-security [amd64])
         valid={'available':True,'text':'linux-image-amd64\n dbus \nlinux-image-amd64\n','truncated':False}
         obs,result,facts,host=assess([True,True],valid)
         self.assertEqual((result['status'],obs['packages']),('warning',['dbus','linux-image-amd64']))
+        self.assertIs(facts[field['value']['fact']]['value'],True)
         self.assertEqual(obs['package_list_status'],'reported')
         self.assertEqual(facts['package_notice']['value'],'')
         for markers in ([False],[True,False]):
             obs,result,facts,host=assess(markers,valid)
             self.assertEqual((result['status'],obs['packages']),('healthy',[]))
+            self.assertIs(facts[field['value']['fact']]['value'],False)
             self.assertEqual(facts['packages']['rows'],[])
             self.assertEqual(facts['package_notice']['value'],'')
             if markers==[False]:self.assertEqual(host.reads,0)

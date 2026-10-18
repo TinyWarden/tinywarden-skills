@@ -1,6 +1,9 @@
 {
   "format": 2,
   "sources": {
+    "marker": {
+      "kind": "boolean"
+    },
     "reboot_request": {
       "kind": "text",
       "enum": {
@@ -81,7 +84,7 @@
         "type": "value",
         "label_key": "dashboard_reboot_request",
         "value": {
-          "fact": "reboot_request"
+          "fact": "marker"
         }
       }
     ]

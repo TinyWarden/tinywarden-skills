@@ -13,6 +13,10 @@ partial package information does not clear a current reboot warning. Normal
 results have no Details. Names are server-reported evidence; the list is optional
 and does not establish every cause of a reboot request.
 
+The dashboard's Reboot request field uses the existing boolean marker fact and
+displays Yes or No. Missing evidence remains unavailable; it is never inferred as
+No. The field ID, detailed wording, settings and notification behavior are unchanged.
+
 The collector checks /run/reboot-required, optionally reads up to 16 KiB from
 /run/reboot-required.pkgs, then confirms that the request still exists before
 showing names. A disappeared request discards the list. It accepts bounded package
