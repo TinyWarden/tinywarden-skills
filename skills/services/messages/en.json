@@ -1,0 +1,169 @@
+{
+  "name": {
+    "text": "Services",
+    "parameters": {}
+  },
+  "description": {
+    "text": "Monitors selected systemd services that should remain running. Discovery does not select services automatically.",
+    "parameters": {}
+  },
+  "monitored_services_label": {
+    "text": "Services to monitor",
+    "parameters": {}
+  },
+  "monitored_services_help": {
+    "text": "Select only services that should remain running on this server. Oneshot and demand-activated services cannot be selected. Discovery never selects a service automatically.",
+    "parameters": {}
+  },
+  "interval_seconds_label": {
+    "text": "Check interval",
+    "parameters": {}
+  },
+  "interval_seconds_help": {
+    "text": "Time between observations. A stop and restart between observations may be missed.",
+    "parameters": {}
+  },
+  "alert_after_seconds_label": {
+    "text": "Alert delay",
+    "parameters": {}
+  },
+  "alert_after_seconds_help": {
+    "text": "Confirm unhealthy state in two distinct observations separated by this delay. Zero alerts from the first observation after startup grace. Collection and delivery add time.",
+    "parameters": {}
+  },
+  "startup_grace_seconds_label": {
+    "text": "Startup grace",
+    "parameters": {}
+  },
+  "startup_grace_seconds_help": {
+    "text": "Time after server boot before an unhealthy service can become critical. This does not report stopped services as healthy.",
+    "parameters": {}
+  },
+  "inventory_limit": {
+    "text": "Discovery reached its limit. Selected services are checked separately.",
+    "parameters": {}
+  },
+  "inventory_unavailable": {
+    "text": "Service discovery is incomplete. Selected services are checked separately.",
+    "parameters": {}
+  },
+  "ineligible": {
+    "text": "This service is a oneshot, retained-exit, template or demand-activated unit.",
+    "parameters": {}
+  },
+  "not_readable": {
+    "text": "Service properties could not be read.",
+    "parameters": {}
+  },
+  "healthy_reason": {
+    "text": "{service} is {state}.",
+    "parameters": {
+      "service": "string",
+      "state": "string"
+    }
+  },
+  "pending_reason": {
+    "text": "{service} is {state}; waiting for fresh confirmation or startup grace.",
+    "parameters": {
+      "service": "string",
+      "state": "string"
+    }
+  },
+  "critical_reason": {
+    "text": "{service} is {state}.",
+    "parameters": {
+      "service": "string",
+      "state": "string"
+    }
+  },
+  "unknown_reason": {
+    "text": "{service} needs review or a readable current state.",
+    "parameters": {
+      "service": "string"
+    }
+  },
+  "raw_label": {
+    "text": "Observed state",
+    "parameters": {}
+  },
+  "first_bad_label": {
+    "text": "First observed unhealthy",
+    "parameters": {}
+  },
+  "observed_label": {
+    "text": "Observed at",
+    "parameters": {}
+  },
+  "result_label": {
+    "text": "Systemd result",
+    "parameters": {}
+  },
+  "exit_label": {
+    "text": "Service exit status",
+    "parameters": {}
+  },
+  "counts_label": {
+    "text": "Monitored services",
+    "parameters": {}
+  },
+  "healthy_count": {
+    "text": "Running",
+    "parameters": {}
+  },
+  "critical_count": {
+    "text": "Needs attention",
+    "parameters": {}
+  },
+  "unknown_count": {
+    "text": "Checking or unknown",
+    "parameters": {}
+  },
+  "raw_running": {
+    "text": "Running",
+    "parameters": {}
+  },
+  "raw_reloading": {
+    "text": "Reloading",
+    "parameters": {}
+  },
+  "raw_stopped": {
+    "text": "Stopped",
+    "parameters": {}
+  },
+  "raw_failed": {
+    "text": "Failed",
+    "parameters": {}
+  },
+  "raw_starting": {
+    "text": "Starting",
+    "parameters": {}
+  },
+  "raw_stopping": {
+    "text": "Stopping",
+    "parameters": {}
+  },
+  "raw_restarting": {
+    "text": "Restarting",
+    "parameters": {}
+  },
+  "raw_missing": {
+    "text": "Missing",
+    "parameters": {}
+  },
+  "raw_masked": {
+    "text": "Masked",
+    "parameters": {}
+  },
+  "raw_invalid": {
+    "text": "Invalid",
+    "parameters": {}
+  },
+  "raw_unknown": {
+    "text": "Unknown",
+    "parameters": {}
+  },
+  "raw_review": {
+    "text": "Review",
+    "parameters": {}
+  }
+}

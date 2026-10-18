@@ -2,6 +2,7 @@
 import hashlib
 import io
 import json
+import os
 import shutil
 import tarfile
 import urllib.request
@@ -12,6 +13,17 @@ SDK = ROOT / '.cache/sdk'
 
 
 def bootstrap():
+    # Explicit source development only; published builds use the pinned SDK below.
+    source = os.environ.get('TW_SKILL_SDK_SOURCE')
+    if source:
+        directory = Path(source).resolve(strict=True)
+        artifact = directory / 'sdk/python/runtime/artifact.json'
+        record = json.loads(artifact.read_text())
+        for name, digest in record['files'].items():
+            path = artifact.parent / name
+            if path.is_symlink() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+                raise ValueError('Source SDK runtime hash mismatch')
+        return directory
     lock = json.loads((ROOT / 'SDK.lock.json').read_text())
     def matches():
         return all((SDK / name).is_file() and not (SDK / name).is_symlink()

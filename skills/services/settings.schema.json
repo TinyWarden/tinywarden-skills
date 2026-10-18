@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "properties": {
+    "monitored_services": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 255
+      },
+      "minItems": 0,
+      "maxItems": 64
+    },
+    "interval_seconds": {
+      "type": "integer",
+      "minimum": 60,
+      "maximum": 86400
+    },
+    "alert_after_seconds": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3600
+    },
+    "startup_grace_seconds": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 600
+    }
+  },
+  "required": [
+    "monitored_services",
+    "interval_seconds",
+    "alert_after_seconds",
+    "startup_grace_seconds"
+  ],
+  "additionalProperties": false
+}

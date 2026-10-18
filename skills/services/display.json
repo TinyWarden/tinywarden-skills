@@ -1,0 +1,33 @@
+{
+  "format": 2,
+  "sources": {
+    "healthy_count": {
+      "kind": "number"
+    },
+    "critical_count": {
+      "kind": "number"
+    },
+    "unknown_count": {
+      "kind": "number"
+    }
+  },
+  "sections": [
+    {
+      "id": "counts",
+      "role": "current",
+      "title_key": "counts_label",
+      "widgets": [
+        {
+          "id": "counts_facts",
+          "type": "facts",
+          "title_key": "counts_label",
+          "facts": [
+            "healthy_count",
+            "critical_count",
+            "unknown_count"
+          ]
+        }
+      ]
+    }
+  ]
+}

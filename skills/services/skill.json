@@ -1,0 +1,82 @@
+{
+  "format": 2,
+  "id": "tinywarden/services",
+  "version": "1.0.0",
+  "runtime": "python-3.13-v1",
+  "sdk": 2,
+  "state_version": 1,
+  "license": "Apache-2.0",
+  "publisher": "TinyWarden",
+  "name_key": "name",
+  "description_key": "description",
+  "category": "System",
+  "compatibility": {
+    "os": [
+      "debian:13"
+    ],
+    "architectures": [
+      "amd64"
+    ]
+  },
+  "defaults": {
+    "monitored_services": [],
+    "interval_seconds": 60,
+    "alert_after_seconds": 60,
+    "startup_grace_seconds": 120
+  },
+  "schedule": {
+    "minimum_seconds": 60,
+    "maximum_seconds": 86400
+  },
+  "capabilities": [
+    {
+      "operation": "systemd.services.list"
+    },
+    {
+      "operation": "systemd.services.read"
+    }
+  ],
+  "limits": {
+    "wall_seconds": 45
+  },
+  "fields": {
+    "monitored_services": {
+      "label_key": "monitored_services_label",
+      "help_key": "monitored_services_help",
+      "unit": "",
+      "order": 0,
+      "scope": "host",
+      "editor": {
+        "kind": "resources",
+        "collection": "services"
+      }
+    },
+    "interval_seconds": {
+      "label_key": "interval_seconds_label",
+      "help_key": "interval_seconds_help",
+      "unit": "seconds",
+      "order": 1
+    },
+    "alert_after_seconds": {
+      "label_key": "alert_after_seconds_label",
+      "help_key": "alert_after_seconds_help",
+      "unit": "seconds",
+      "order": 2
+    },
+    "startup_grace_seconds": {
+      "label_key": "startup_grace_seconds_label",
+      "help_key": "startup_grace_seconds_help",
+      "unit": "seconds",
+      "order": 3
+    }
+  },
+  "resource_collections": {
+    "services": {
+      "selection_field": "monitored_services",
+      "label_key": "monitored_services_label",
+      "help_key": "monitored_services_help",
+      "max_discovered": 512,
+      "max_selected": 64
+    }
+  }
+}

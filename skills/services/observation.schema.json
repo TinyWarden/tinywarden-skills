@@ -1,0 +1,72 @@
+{
+  "type": "object",
+  "properties": {
+    "boot_id": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 64
+    },
+    "uptime_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "raw": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 32,
+            "enum": [
+              "running",
+              "reloading",
+              "stopped",
+              "failed",
+              "starting",
+              "stopping",
+              "restarting",
+              "missing",
+              "masked",
+              "invalid",
+              "unknown",
+              "review"
+            ]
+          },
+          "result": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "exit_status": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 32
+          }
+        },
+        "required": [
+          "key",
+          "raw",
+          "result",
+          "exit_status"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 64
+    }
+  },
+  "required": [
+    "boot_id",
+    "uptime_ms",
+    "rows"
+  ],
+  "additionalProperties": false
+}

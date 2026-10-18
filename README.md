@@ -1,7 +1,7 @@
 # TinyWarden skills
 
 Official monitoring skills for [TinyWarden](https://github.com/TinyWarden/tinywarden):
-Disk space, Filesystem trim, Package updates and Reboot status. Each package owns
+Disk space, Filesystem trim, Package updates, Reboot status and Services. Each package owns
 its Python code, settings, messages, notifications and display descriptor.
 
 In the app, open Skills → Manage skills (`/skills/manage`). This repository is available by default.
@@ -10,6 +10,11 @@ Updates are manual and preserve compatible settings and retained history.
 
 Skills monitor and report. These packages do not install operating-system updates,
 reboot servers or execute filesystem trim.
+
+Services 1.0.0 requires managed agent 0.0.11 or later and the resource-capable app.
+It uses per-server selection and independent service incidents. After enabling it,
+open a server's Services settings and choose which services should remain running.
+Its initial selection is empty. Existing published ZIPs are unchanged.
 
 ## Develop and verify
 

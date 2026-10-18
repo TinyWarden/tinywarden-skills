@@ -2,11 +2,12 @@
 import datetime
 import importlib.util
 import json
+import os
 import sys
 import unittest
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-SDK = ROOT / '.cache/sdk'
+SDK = Path(os.environ['TW_SKILL_SDK_SOURCE']) if os.environ.get('TW_SKILL_SDK_SOURCE') else ROOT / '.cache/sdk'
 sys.path.insert(0, str(SDK / 'sdk/python/runtime'))
 from packages import load
 from schema import validate
@@ -217,6 +218,8 @@ Conf libcurl4t64 (8.14.1-2+deb13u7 Debian-Security:13/stable-security [amd64])
         self.assertTrue(skill.validate_settings({**settings,'critical_percent':85}))
     def test_metadata_all_packages_and_fifth(self):
         for directory in [*(ROOT/'skills').iterdir(),SDK/'skills/examples/memory-pressure']:
+            if not os.environ.get('TW_SKILL_SDK_SOURCE') and directory.name in json.loads((ROOT/'UNRELEASED.json').read_text())['skills']:
+                continue
             with self.subTest(package=directory.name):
                 m=load(directory,official=directory.parent == ROOT/'skills');validate(m['schemas']['settings'],m['manifest']['defaults'])
 

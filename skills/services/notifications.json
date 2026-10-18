@@ -1,0 +1,49 @@
+{
+  "format": 1,
+  "rules": [
+    {
+      "reason": "critical_reason",
+      "states": [
+        "critical"
+      ],
+      "message_key": "critical_reason",
+      "parameters": {
+        "service": {
+          "source": {
+            "reason_param": "service"
+          },
+          "marks": [
+            "bold"
+          ]
+        },
+        "state": {
+          "source": {
+            "reason_param": "state"
+          }
+        }
+      }
+    },
+    {
+      "reason": "healthy_reason",
+      "states": [
+        "healthy"
+      ],
+      "message_key": "healthy_reason",
+      "parameters": {
+        "service": {
+          "source": {
+            "reason_param": "service"
+          },
+          "marks": [
+            "bold"
+          ]
+        },
+        "state": {
+          "source": {
+            "reason_param": "state"
+          }
+        }
+      }
+    }
+  ]
+}

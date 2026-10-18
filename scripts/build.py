@@ -14,14 +14,16 @@ from packages import content, load
 from archives import canonical_archive, extract
 
 
-def build(output):
+def build(output, include_unreleased=False):
     output = Path(output).absolute()
     if output.exists() or ROOT / 'skills' == output or ROOT / 'skills' in output.parents:
         raise ValueError('Use a new output directory outside skills/')
     output.mkdir(parents=True)
     entries = []
+    pending = json.loads((ROOT / 'UNRELEASED.json').read_text())['skills']
     for directory in sorted((ROOT / 'skills').iterdir()):
         if not directory.is_dir(): continue
+        if directory.name in pending and not include_unreleased: continue
         metadata = load(directory, official=True)
         manifest = metadata['manifest']
         files, digest, _ = content(directory)
@@ -47,5 +49,6 @@ def build(output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--include-unreleased', action='store_true', help='Prepare unreleased packages with an explicit compatible source SDK')
     args = parser.parse_args()
-    print(json.dumps(build(args.output)))
+    print(json.dumps(build(args.output, args.include_unreleased)))

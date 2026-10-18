@@ -19,3 +19,18 @@ requires no app or agent binary change when it uses the existing SDK/API.
 The initial packages were moved byte-for-byte from agent commit
 `f1ef63d619ced336ffa09c7cdfea4f2125042b4b`. Their package versions and canonical
 content identities remain intact; source location is outside package identity.
+
+## Compatible SDK and unreleased source
+
+`UNRELEASED.json` excludes accepted development packages from the published build
+and catalogue. Services 1.0.0 uses the resource platform and managed agent 0.0.11.
+Publish a compatible platform before exposing a package that needs new features.
+
+For local acceptance, set `TW_SKILL_SDK_SOURCE` to the reviewed agent checkout.
+Its runtime file hashes are checked. `scripts/build.py --include-unreleased` then
+prepares released and pending ZIPs in a new output directory; it does not publish
+or rewrite the root catalogue. Normal builds use SDK.lock.json. At publication,
+pin the exact published SDK commit and archive/file hashes, remove the package
+from UNRELEASED.json, publish its ZIP, then update SKILLS.json. Do not advertise a
+release asset that does not exist. Services was accepted with the same bytes under
+both the reviewed source SDK and its published, hash-pinned commit.

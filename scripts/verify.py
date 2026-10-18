@@ -13,6 +13,7 @@ parser.add_argument('--sandbox', action='store_true', help='Also execute disk as
 args = parser.parse_args()
 bootstrap()
 subprocess.run([sys.executable,'-B','-m','unittest','discover','-s','tests','-p','test_official.py'], cwd=ROOT, check=True)
+subprocess.run([sys.executable,'-B','-m','unittest','discover','-s','tests','-p','test_services.py'], cwd=ROOT, check=True)
 if args.sandbox:
     subprocess.run([sys.executable,'-B','-m','unittest','discover','-s','tests','-p','test_disk_display_sandbox.py'], cwd=ROOT, check=True)
 from build import build
