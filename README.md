@@ -1,38 +1,31 @@
 # TinyWarden skills
 
-Official monitoring skills for [TinyWarden](https://github.com/TinyWarden/tinywarden):
-Disk space, Filesystem trim, Package updates, Reboot status and Services. Each package owns
-its Python code, settings, messages, notifications and display descriptor.
+Official monitoring packages for [TinyWarden](https://github.com/TinyWarden/tinywarden):
 
-In the app, open Skills → Manage skills (`/skills/manage`). This repository is available by default.
-Installation adds a skill disabled; review its server access before enabling it.
-Updates are manual and preserve compatible settings and retained history.
+- [Disk space](skills/disk-local/README.md)
+- [Filesystem trim](skills/fstrim-status/README.md)
+- [Package updates](skills/package-updates/README.md)
+- [Reboot status](skills/reboot-required/README.md)
+- [Services](skills/services/README.md)
 
-Skills monitor and report. These packages do not install operating-system updates,
+Open **Skills → Manage skills** in TinyWarden to install packages. Review requested
+host access before enabling a skill. For Services choose monitored services on each
+server; its initial selection is empty.
+
+These skills observe and report. They do not install operating-system updates,
 reboot servers or execute filesystem trim.
 
-Services 1.0.0 requires managed agent 0.0.11 or later and the resource-capable app.
-It uses per-server selection and independent service incidents. After enabling it,
-open a server's Services settings and choose which services should remain running.
-Its initial selection is empty. Existing published ZIPs are unchanged.
+## Development
 
-## Develop and verify
-
-Python 3.13 is the supported SDK runtime. The SDK is fetched at the exact commit
-and hashes in SDK.lock.json into ignored `.cache/sdk`. No app or agent checkout
-is required. The generic SDK is maintained in the agent repository.
+Use Python 3.13. The SDK is fetched at the exact commit and hashes in
+[SDK.lock.json](SDK.lock.json); no app or host-agent checkout is required.
 
 ```sh
 python3.13 -B scripts/verify.py
 python3.13 -B scripts/build.py --output /tmp/tinywarden-skill-release
 ```
 
-The build creates ready ZIPs and SKILLS.json without executing skill collection.
-Package tests use captured observations and mocked host inputs. The optional
-`--sandbox` test needs bubblewrap, libseccomp2, unprivileged namespaces and delegated
-cgroup controllers; use a supported native systemd session as described by the
-[SDK guide](https://github.com/TinyWarden/tinywarden-agent/blob/main/docs/skills/authoring.md).
-
-See [repository convention](SKILLS.md), [publishing](docs/publishing.md), and each
-package's README. All code is Apache-2.0; preserve package licenses when deriving
-community skills. Forks should use their own skill namespace.
+Choose a new output directory for builds. See the [repository convention](SKILLS.md),
+[contribution instructions](CONTRIBUTING.md) and
+[TinyWarden documentation](https://github.com/TinyWarden/tinywarden/blob/main/docs/README.md).
+Packages are Apache-2.0; preserve their licenses when adapting them.

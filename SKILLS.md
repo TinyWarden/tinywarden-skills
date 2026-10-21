@@ -1,33 +1,27 @@
 # Skill repository convention
 
-Paste a public `https://github.com/OWNER/REPOSITORY` URL in Settings → Skill
-repositories. The app reads a regular root `SKILLS.json` from the default branch.
-It never builds or executes repository source to discover packages.
+A TinyWarden skill repository exposes a regular root `SKILLS.json` on its default
+branch. Administrators add its public `https://github.com/OWNER/REPOSITORY` URL in
+**Settings → Skill repositories**. The app reads the catalogue without building or
+executing repository source.
 
-Catalogue format 1 contains `format` and `skills`. Each skill has `id`, `version`,
-plain-text `name` and `description`, `content_sha256`, and `archive`. The archive
-has `tag`, `asset`, ZIP `sha256` and byte `size`. The tag identifies a published
-stable GitHub Release in the same repository; the asset identifies its ZIP.
-Publish assets first, then update the catalogue.
+Format 1 has `format: 1` and a `skills` array. Each entry supplies `id`, `version`,
+plain-text `name`/`description`, `content_sha256` and an `archive` object containing
+`tag`, `asset`, `sha256` and `size`. The archive identifies a published stable GitHub
+Release asset in the same repository. Publish the asset before adding its catalogue
+entry. Use the current [SKILLS.json](SKILLS.json) as an example and the
+[catalogue schema](https://github.com/TinyWarden/tinywarden/blob/main/docs/architecture/skill-repository.schema.json)
+for field syntax.
 
-Only the newest stable release of each skill appears in the catalogue. The app
-keeps installed versions and historical data independently. A repository cannot
-replace a skill installed from a different source. Use a distinct namespace for
-forks. Author-supplied publisher names cannot grant the Official badge.
+Use stable `namespace/slug` IDs and stable semantic versions. Forks need a distinct
+namespace. Package content hashes and ZIP hashes are different identities; preserve
+both. The pinned SDK's `skill_tool.py pack` produces canonical package identities.
 
-The app supports 200 entries per repository, 512 KiB catalogue bytes, 10 MiB ZIPs,
-20 configured repositories and 100 installed skills. Catalogue pages contain 50 items.
-Names are at most 120 characters and descriptions at most 500. Versions are stable
-`major.minor.patch`; each component is at most nine digits. IDs follow the SDK's
-`namespace/slug` grammar. Release tags and ZIP names are bounded safe ASCII names,
-at most 128 characters, without path separators. ZIPs must satisfy SDK admission.
+The Official badge describes verified publishing origin. Host access still requires
+administrator review and remains bounded by the host agent's sandbox/local limits.
+See [development and verification](README.md#development) and the
+[TinyWarden documentation](https://github.com/TinyWarden/tinywarden/blob/main/docs/README.md).
 
-Use [SKILLS.json](SKILLS.json) as a complete working example. The app publishes
-the full operator/API contract and JSON schema in its architecture documentation.
-Community authors can use the [SDK tools](https://github.com/TinyWarden/tinywarden-agent/blob/main/docs/skills/authoring.md)
-to create and pack their own packages, then attach those ZIPs to GitHub Releases.
-Both archive and canonical content hashes are returned by `skill_tool.py pack`.
-
-Official means acquired through TinyWarden's verified repository identity and
-ownership. It describes publishing origin; requested host access remains subject
-to administrator approval and the agent's sandbox/local limits.
+The [author guide](https://github.com/TinyWarden/tinywarden/blob/main/docs/build-skills/README.md)
+covers bootstrap, tests, resources, host access, display, notifications and
+publication. This entry point does not replace the SDK contracts.
