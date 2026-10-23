@@ -9,8 +9,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SDK = Path(os.environ['TW_SKILL_SDK_SOURCE']) if os.environ.get('TW_SKILL_SDK_SOURCE') else ROOT / '.cache/sdk'
 sys.path.insert(0, str(SDK / 'sdk/python/runtime'))
-from packages import load
-from schema import validate
+from packages.admission import load
+from contracts.schema import validate
 
 def module(alias):
     directory = ROOT / 'skills' / alias
@@ -65,7 +65,7 @@ Conf nano (8.4-1+deb13u1 Debian:13.7/stable [amd64])
         self.assertEqual(len(rows),5)
         metadata = load(ROOT/'skills/package-updates',official=True)
         validate(metadata['schemas']['observation'],observation)
-        from outcomes import timeline
+        from contracts.outcomes import timeline
         context = {'observation':observation,'now':1000,'evidence_expires_at':2000}
         timeline(skill.evaluate(context),context,metadata['catalog'])
 
@@ -195,7 +195,7 @@ Conf libcurl4t64 (8.14.1-2+deb13u7 Debian-Security:13/stable-security [amd64])
                    'evidence_expires_at':(obs['timer']['next_elapse'] + 86401)*1000}
         context['state'] = skill.reduce(context)
         result = skill.evaluate(context)
-        from outcomes import timeline
+        from contracts.outcomes import timeline
         metadata = load(ROOT/'skills/fstrim-status', official=True)
         timeline(result, context, metadata['catalog'])
         self.assertEqual(result[0]['status'], 'healthy')
@@ -217,7 +217,7 @@ Conf libcurl4t64 (8.14.1-2+deb13u7 Debian-Security:13/stable-security [amd64])
         mount['writable']=False;self.assertEqual(skill.evaluate(context)[0]['status'],'unknown')
         self.assertTrue(skill.validate_settings({**settings,'critical_percent':85}))
     def test_metadata_all_packages_and_fifth(self):
-        for directory in [*(ROOT/'skills').iterdir(),SDK/'skills/examples/memory-pressure']:
+        for directory in [*(ROOT/'skills').iterdir(),SDK/'examples/skills/memory-pressure']:
             if not os.environ.get('TW_SKILL_SDK_SOURCE') and directory.name in json.loads((ROOT/'UNRELEASED.json').read_text())['skills']:
                 continue
             with self.subTest(package=directory.name):
@@ -241,7 +241,7 @@ Conf libcurl4t64 (8.14.1-2+deb13u7 Debian-Security:13/stable-security [amd64])
             validate(metadata['schemas']['observation'],obs)
             context={'observation':obs,'now':1000,'evidence_expires_at':2000}
             result=skill.evaluate(context)[0]
-            from outcomes import timeline
+            from contracts.outcomes import timeline
             timeline([result],context,metadata['catalog'])
             return obs,result,{f['key']:f for f in result['facts']},host
         valid={'available':True,'text':'linux-image-amd64\n dbus \nlinux-image-amd64\n','truncated':False}

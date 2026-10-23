@@ -17,5 +17,12 @@ new version and the normal release process; preserve published versions. Publish
 ZIP assets before updating `SKILLS.json`. Keep SDK pins explicit and review affected
 packages together. Use [SKILLS.md](SKILLS.md) for the repository contract and
 [AGENTS.md](AGENTS.md) for LLM instructions.
+
+Repository build tooling imports the pinned SDK's `runtime/packages/admission.py`
+and `runtime/contracts/` modules. These are build-tool dependencies, not imports
+for packaged skill code. The SDK starter is under `examples/skills/` in the agent
+repository. For SDK development only, `TW_SKILL_SDK_SOURCE` can select an explicit
+candidate source tree; unset it when verifying the published lock in a fresh cache.
+This override must never silently replace the normal pinned bootstrap.
 Update current guidance under the
 [documentation policy](https://github.com/TinyWarden/tinywarden/blob/main/docs/contributing/documentation.md).

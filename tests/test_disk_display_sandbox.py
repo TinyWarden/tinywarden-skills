@@ -1,14 +1,15 @@
 """Canonical capacity and stable-series proof through the actual SDK sandbox."""
 import json
+import os
 import subprocess
 import sys
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SDK = ROOT / ".cache/sdk"
+SDK = Path(os.environ["TW_SKILL_SDK_SOURCE"]) if os.environ.get("TW_SKILL_SDK_SOURCE") else ROOT / ".cache/sdk"
 sys.path.insert(0, str(SDK / "sdk/python/runtime"))
-from packages import load
+from packages.admission import load
 
 
 class DiskDisplay(unittest.TestCase):

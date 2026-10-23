@@ -16,6 +16,12 @@ Run verification with Python 3.13. Use a new absolute output directory for a bui
 A README-only edit inside a package still changes its canonical content hash.
 A root guide edit does not justify rebuilding or publishing unchanged packages.
 Do not change SDK pins merely to bypass a local test prerequisite.
+Build-tool imports use the pinned SDK's `packages.admission` and `contracts`
+modules. Packaged skills depend on the documented SDK entry points and host
+interface, not those internal module paths. When an SDK layout changes, update
+the exact archive/file lock and verify a fresh cache without a source override.
+Keep official package source and catalogue/ZIP identities unchanged during an
+SDK-only migration; no repository merge or skill release is implied.
 
 ## Load context by task
 

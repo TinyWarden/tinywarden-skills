@@ -10,8 +10,8 @@ from sdk import ROOT, bootstrap
 
 SDK = bootstrap()
 sys.path.insert(0, str(SDK / 'sdk/python/runtime'))
-from packages import content, load
-from archives import canonical_archive, extract
+from packages.admission import content, load
+from packages.archives import canonical_archive, extract
 
 
 def build(output, include_unreleased=False):
