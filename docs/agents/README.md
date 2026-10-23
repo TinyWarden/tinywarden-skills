@@ -30,6 +30,10 @@ SDK-only migration; no repository merge or skill release is implied.
   [SDK reference](https://github.com/TinyWarden/tinywarden/blob/main/docs/reference/skills/sdk.md)
   and [host access](https://github.com/TinyWarden/tinywarden/blob/main/docs/reference/skills/host-access.md).
   Test incomplete evidence, boundaries, clocks and reset state.
+  Compatible reducer memory survives monitoring gaps; it is not current health.
+  Use fresh evidence to reassess remembered results and pending deadlines. Generic
+  SDK host observations use UTC independently of the server timezone; do not add
+  per-package timezone or clock allowances.
 - For multi-target checks use
   [resources](https://github.com/TinyWarden/tinywarden/blob/main/docs/build-skills/resources.md):
   empty selection, missing evidence and membership changes must not fabricate
