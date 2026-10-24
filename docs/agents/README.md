@@ -48,3 +48,9 @@ SDK-only migration; no repository merge or skill release is implied.
 Update the reference and human guide under the
 [documentation policy](https://github.com/TinyWarden/tinywarden/blob/main/docs/contributing/documentation.md).
 Frozen package README changes require the versioned release process.
+
+Privileged host maintenance belongs to the separately reviewed platform/agent
+action system, not monitoring packages or their SDK permissions. See the canonical
+[maintenance contracts](https://github.com/TinyWarden/tinywarden/blob/main/docs/reference/maintenance-actions.md).
+Keep published package README bytes and catalogue identities unchanged when only
+clarifying this boundary; update repository-level or central guidance instead.

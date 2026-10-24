@@ -13,7 +13,8 @@ host access before enabling a skill. For Services choose monitored services on e
 server; its initial selection is empty.
 
 These skills observe and report. They do not install operating-system updates,
-reboot servers or execute filesystem trim.
+reboot servers or execute filesystem trim. Administrative package actions live in
+the separate [Fleet maintenance workflow](https://github.com/TinyWarden/tinywarden/blob/main/docs/using/package-maintenance.md); they do not expand a skill’s host permissions.
 
 ## Development
 
