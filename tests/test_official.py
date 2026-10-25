@@ -26,6 +26,16 @@ def clean(value):
     if isinstance(value, list): return [clean(v) for v in value]
     return value
 
+def monitor_metadata(alias):
+    directory = ROOT / 'skills' / alias
+    pending = json.loads((ROOT/'UNRELEASED.json').read_text())['skills']
+    if not os.environ.get('TW_SKILL_SDK_SOURCE') and alias in pending:
+        # Check pure monitor values with the released SDK. Full candidate package
+        # admission is checked separately with the explicit compatible SDK.
+        return {'schemas': {'observation': json.loads((directory/'observation.schema.json').read_text())},
+                'catalog': json.loads((directory/'messages/en.json').read_text())}
+    return load(directory, official=True)
+
 class OfficialTests(unittest.TestCase):
     def test_apt_golden_counts_and_uncertain_output(self):
         skill = module('package-updates')
@@ -63,7 +73,7 @@ Conf nano (8.4-1+deb13u1 Debian:13.7/stable [amd64])
         self.assertEqual(rows[4], {'package':'obsolete','installed_version':'1.0-1','available_version':'','action':'removed'})
         self.assertEqual(rows[0]['available_version'],'')
         self.assertEqual(len(rows),5)
-        metadata = load(ROOT/'skills/package-updates',official=True)
+        metadata = monitor_metadata('package-updates')
         validate(metadata['schemas']['observation'],observation)
         from contracts.outcomes import timeline
         context = {'observation':observation,'now':1000,'evidence_expires_at':2000}
@@ -88,7 +98,7 @@ Conf libcurl4t64 (8.14.1-2+deb13u7 Debian-Security:13/stable-security [amd64])
             self.assertEqual(row['installed_version'],'8.14.1-2+deb13u5')
             self.assertEqual(row['available_version'],'8.14.1-2+deb13u7')
             self.assertEqual(row['action'],'upgraded')
-        metadata = load(ROOT/'skills/package-updates',official=True)
+        metadata = monitor_metadata('package-updates')
         validate(metadata['schemas']['observation'],observation)
         result = skill.evaluate({'observation':observation,'now':1000})[0]
         self.assertEqual(result['status'],'warning')

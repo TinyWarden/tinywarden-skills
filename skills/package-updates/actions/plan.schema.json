@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "properties": {
+    "operation": {
+      "type": "string",
+      "enum": [
+        "refresh_package_lists"
+      ],
+      "maxLength": 32
+    }
+  },
+  "required": [
+    "operation"
+  ],
+  "additionalProperties": false
+}

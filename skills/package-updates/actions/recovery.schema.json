@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "refreshed",
+        "failed",
+        "interrupted",
+        "not_started"
+      ],
+      "maxLength": 32
+    }
+  },
+  "required": [
+    "outcome"
+  ],
+  "additionalProperties": false
+}

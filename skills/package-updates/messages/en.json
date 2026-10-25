@@ -4,7 +4,7 @@
     "parameters": {}
   },
   "description": {
-    "text": "Simulates pending APT upgrades using the server’s locally cached package lists. It does not install packages or refresh lists, and does not verify repository freshness or security-update counts.",
+    "text": "Monitors pending APT updates from cached package lists. Separately authorized actions can refresh lists and perform an explicitly approved conservative upgrade.",
     "parameters": {}
   },
   "mount_id_label": {
@@ -368,7 +368,7 @@
     "parameters": {}
   },
   "fstrim_scheduled": {
-    "text": "Scheduled — awaiting a recorded run.",
+    "text": "Scheduled \u2014 awaiting a recorded run.",
     "parameters": {}
   },
   "fstrim_awaiting_result": {
@@ -686,11 +686,11 @@
     "parameters": {}
   },
   "package_list_partial_value": {
-    "text": "APT did not provide a complete package list in a recognized format. Counts above remain the reported totals; unavailable versions are shown as —.",
+    "text": "APT did not provide a complete package list in a recognized format. Counts above remain the reported totals; unavailable versions are shown as \u2014.",
     "parameters": {}
   },
   "version_not_provided_value": {
-    "text": "—",
+    "text": "\u2014",
     "parameters": {}
   },
   "dashboard_upgraded": {
@@ -707,6 +707,202 @@
   },
   "dashboard_held_back": {
     "text": "Held back",
+    "parameters": {}
+  },
+  "actions.refresh.name": {
+    "text": "Refresh package lists",
+    "parameters": {}
+  },
+  "actions.refresh.description": {
+    "text": "Refresh package lists and verify the saved result. This action does not install packages.",
+    "parameters": {}
+  },
+  "actions.refresh.outcome": {
+    "text": "Refresh result",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_input_invalid": {
+    "text": "APT input paths must be protected and owned by root.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_environment_invalid": {
+    "text": "The inherited APT environment is unsupported.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_hook_policy": {
+    "text": "APT update hooks need local review before this action can run.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_repository_policy": {
+    "text": "Repository settings do not meet the required signature and transport policy.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_package_policy": {
+    "text": "APT package settings need local review.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_download_sandbox": {
+    "text": "The APT download user or staging permissions need local review.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_refresh_timeout": {
+    "text": "Refreshing package lists stopped after its time or progress limit.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_refresh_failed": {
+    "text": "Refreshing package lists failed. Some indexes may have changed.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_adapter_failed": {
+    "text": "The package operation could not be verified. Review the server before retrying.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_root_required": {
+    "text": "This action requires explicit administrator trust on this server.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_lock_timeout": {
+    "text": "Another package operation is running.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_receipt_invalid": {
+    "text": "The saved refresh result could not be verified.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_busy": {
+    "text": "Another package operation is running.",
+    "parameters": {}
+  },
+  "actions.upgrade.name": {
+    "text": "Conservative upgrade",
+    "parameters": {}
+  },
+  "actions.upgrade.description": {
+    "text": "Refresh package lists and prepare upgrades of installed packages. Review and approve the exact plan before installation. Package scripts may run and services may restart.",
+    "parameters": {}
+  },
+  "actions.upgrade.package_count": {
+    "text": "Packages to upgrade",
+    "parameters": {}
+  },
+  "actions.upgrade.kept_back_count": {
+    "text": "Kept-back packages",
+    "parameters": {}
+  },
+  "actions.upgrade.download_bytes": {
+    "text": "Download size",
+    "parameters": {}
+  },
+  "actions.upgrade.packages": {
+    "text": "Packages to upgrade",
+    "parameters": {}
+  },
+  "actions.upgrade.kept_back": {
+    "text": "Kept-back packages",
+    "parameters": {}
+  },
+  "actions.upgrade.name_field": {
+    "text": "Package",
+    "parameters": {}
+  },
+  "actions.upgrade.architecture": {
+    "text": "Architecture",
+    "parameters": {}
+  },
+  "actions.upgrade.installed_version": {
+    "text": "Installed version",
+    "parameters": {}
+  },
+  "actions.upgrade.candidate_version": {
+    "text": "New version",
+    "parameters": {}
+  },
+  "actions.upgrade.held": {
+    "text": "Held",
+    "parameters": {}
+  },
+  "actions.upgrade.outcome": {
+    "text": "Outcome",
+    "parameters": {}
+  },
+  "actions.upgrade.reboot_required": {
+    "text": "Reboot required",
+    "parameters": {}
+  },
+  "actions.upgrade.configuration_review": {
+    "text": "Configuration review required",
+    "parameters": {}
+  },
+  "actions.upgrade.services_restart_required": {
+    "text": "Service review required",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_download_failed": {
+    "text": "An approved archive could not be downloaded. No package installation was started.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_disk_space": {
+    "text": "A required destination lacks writable space or inodes. Review its filesystems before preparing again.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_repository_expired": {
+    "text": "Repository metadata has expired or its date cannot be verified. Refresh and prepare a new plan.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_download_required": {
+    "text": "The package operation stopped because its safety checks could not be confirmed.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_plan_changed": {
+    "text": "The plan or scope changed. Close this window, refresh the servers and prepare a new plan.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_reader_timeout": {
+    "text": "The package operation stopped because its safety checks could not be confirmed.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_plan_limit": {
+    "text": "The package operation stopped because its safety checks could not be confirmed.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_reader_failed": {
+    "text": "The package operation stopped because its safety checks could not be confirmed.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_archive_method": {
+    "text": "This upgrade supports HTTP(S) package archives and protected local mirror lists containing HTTP(S) mirrors. Other methods need local operation.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_destination_invalid": {
+    "text": "A package destination has unsafe ownership or an ambiguous path. Review it locally.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_verification_failed": {
+    "text": "The installed state did not match the reviewed transaction. Review the server; do not repeat installation.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_apply_incomplete": {
+    "text": "The native package transaction did not complete. Changes may be partial; repair locally before recovery.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_boot_review_required": {
+    "text": "This transaction may update boot, kernel or initramfs state. The entire upgrade needs local review.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_selection_changed": {
+    "text": "Package selections changed during the transaction. Review the server before continuing.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_archive_invalid": {
+    "text": "An archive did not match its approved identity or safe cache requirements. Review it locally.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_metadata_invalid": {
+    "text": "The package operation stopped because its safety checks could not be confirmed.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_package_state": {
+    "text": "Package state needs local review. No automatic configure or repair is attempted.",
     "parameters": {}
   }
 }

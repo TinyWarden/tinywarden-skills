@@ -49,8 +49,26 @@ Update the reference and human guide under the
 [documentation policy](https://github.com/TinyWarden/tinywarden/blob/main/docs/contributing/documentation.md).
 Frozen package README changes require the versioned release process.
 
-Privileged host maintenance belongs to the separately reviewed platform/agent
-action system, not monitoring packages or their SDK permissions. See the canonical
+SDK3 packages can declare separately permissioned actions. Domain operations belong
+to the package; the platform owns authority, delivery, supervision and recovery
+transport. Read-only monitoring grants never authorize an action. The candidate
+Updates action uses the public `skill_actions` API and its private job state FD;
+do not add APT behavior to the agent or generic SDK. See the canonical
 [maintenance contracts](https://github.com/TinyWarden/tinywarden/blob/main/docs/reference/maintenance-actions.md).
 Keep published package README bytes and catalogue identities unchanged when only
 clarifying this boundary; update repository-level or central guidance instead.
+Use `scripts/verify.py --include-unreleased` with an explicitly selected compatible
+SDK to validate pending candidates without rewriting the public catalogue/pin.
+The default verifier still uses the pinned SDK and checks unchanged released
+identities outside `UNRELEASED.json`; candidate admission is a separate assertion.
+
+The candidate Updates Conservative upgrade keeps plan resolution, source/archive
+checks, boot/space/configuration policy and the native transaction in ordinary
+`skills/package-updates/actions/apt_*.py` modules. Use its declared schemas for
+review/results; adding domain fields does not require a platform renderer. Preserve
+the SDK inspection contract: no original plan is supplied, native locks remain held
+through `context.commit`, and inspection never retries application.
+Use the shared [action contract](https://github.com/TinyWarden/tinywarden/blob/main/docs/reference/skills/actions.md)
+for retained preparation effects and required nonnullable review-table sources/rows.
+These are generic platform contracts; existing Updates action code needs no
+package-specific reporting or table-rendering patch.

@@ -1,0 +1,170 @@
+{
+  "type": "object",
+  "properties": {
+    "policy_sha256": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "state_sha256": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "sources_sha256": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "indexes_sha256": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "config_sha256": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "local_sha256": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "selection_sha256": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1,
+      "enum": [
+        1
+      ]
+    },
+    "action": {
+      "type": "string",
+      "maxLength": 64,
+      "enum": [
+        "packages.upgrade_conservative.v1"
+      ]
+    },
+    "provider_version": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1,
+      "enum": [
+        1
+      ]
+    },
+    "package_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5000
+    },
+    "kept_back_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5000
+    },
+    "download_bytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "unpacked_bytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "packages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "architecture": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "installed_version": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "candidate_version": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "archive_sha256": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "archive_bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "installed_bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "name",
+          "architecture",
+          "installed_version",
+          "candidate_version",
+          "archive_sha256",
+          "archive_bytes",
+          "installed_bytes"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 5000
+    },
+    "kept_back": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "architecture": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "held": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "architecture",
+          "held"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 5000
+    }
+  },
+  "required": [
+    "policy_sha256",
+    "state_sha256",
+    "sources_sha256",
+    "indexes_sha256",
+    "config_sha256",
+    "local_sha256",
+    "selection_sha256",
+    "schema_version",
+    "action",
+    "provider_version",
+    "package_count",
+    "kept_back_count",
+    "download_bytes",
+    "unpacked_bytes",
+    "packages",
+    "kept_back"
+  ],
+  "additionalProperties": false
+}

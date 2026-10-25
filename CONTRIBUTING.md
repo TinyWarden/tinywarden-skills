@@ -24,5 +24,11 @@ for packaged skill code. The SDK starter is under `examples/skills/` in the agen
 repository. For SDK development only, `TW_SKILL_SDK_SOURCE` can select an explicit
 candidate source tree; unset it when verifying the published lock in a fresh cache.
 This override must never silently replace the normal pinned bootstrap.
+When `UNRELEASED.json` declares replacements, normal verification checks the
+remaining published source against its unchanged catalogue identities. To include
+the candidates, explicitly run `python3.13 -B scripts/verify.py --include-unreleased`
+with a compatible SDK (and the explicit source override during SDK development).
+This checks candidate admission and two reproducible builds without modifying the
+public catalogue or SDK lock. It does not verify publication of candidate assets.
 Update current guidance under the
 [documentation policy](https://github.com/TinyWarden/tinywarden/blob/main/docs/contributing/documentation.md).

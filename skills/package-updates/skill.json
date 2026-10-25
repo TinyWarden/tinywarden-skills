@@ -1,10 +1,10 @@
 {
-  "format": 1,
+  "format": 3,
   "id": "tinywarden/package-updates",
   "alias": "package-updates",
-  "version": "1.1.7",
+  "version": "1.2.6",
   "runtime": "python-3.13-v1",
-  "sdk": 1,
+  "sdk": 3,
   "state_version": 1,
   "license": "Apache-2.0",
   "publisher": "TinyWarden",
@@ -89,5 +89,217 @@
       "unit": "",
       "order": 2
     }
-  }
+  },
+  "actions": [
+    {
+      "id": "packages.refresh.v1",
+      "version": 1,
+      "name_key": "actions.refresh.name",
+      "description_key": "actions.refresh.description",
+      "execution_class": "host_admin",
+      "requires_approval": false,
+      "requires_monitoring": false,
+      "prepare_effect": "none",
+      "entrypoint": "actions/refresh.py",
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "id": "apt_get",
+          "package": "apt",
+          "path": "/usr/bin/apt-get"
+        },
+        {
+          "kind": "python_module",
+          "id": "python_apt",
+          "package": "python3-apt",
+          "module": "apt"
+        }
+      ],
+      "schemas": {
+        "input": "actions/input.schema.json",
+        "plan": "actions/plan.schema.json",
+        "result": "actions/result.schema.json",
+        "recovery": "actions/recovery.schema.json"
+      },
+      "review": {
+        "facts": [],
+        "tables": []
+      },
+      "result_facts": [
+        {
+          "key": "outcome",
+          "label_key": "actions.refresh.outcome",
+          "kind": "text"
+        }
+      ],
+      "recovery_facts": [
+        {
+          "key": "outcome",
+          "label_key": "actions.refresh.outcome",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "id": "packages.upgrade_conservative.v1",
+      "version": 1,
+      "name_key": "actions.upgrade.name",
+      "description_key": "actions.upgrade.description",
+      "execution_class": "host_admin",
+      "requires_approval": true,
+      "requires_monitoring": false,
+      "prepare_effect": "changed",
+      "entrypoint": "actions/upgrade.py",
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "id": "dpkg",
+          "package": "dpkg",
+          "path": "/usr/bin/dpkg"
+        },
+        {
+          "kind": "executable",
+          "id": "apt_get",
+          "package": "apt",
+          "path": "/usr/bin/apt-get"
+        },
+        {
+          "kind": "python_module",
+          "id": "python_apt",
+          "package": "python3-apt",
+          "module": "apt"
+        }
+      ],
+      "schemas": {
+        "input": "actions/input.schema.json",
+        "plan": "actions/upgrade-plan.schema.json",
+        "result": "actions/upgrade-result.schema.json",
+        "recovery": "actions/upgrade-recovery.schema.json"
+      },
+      "review": {
+        "facts": [
+          {
+            "key": "package_count",
+            "label_key": "actions.upgrade.package_count",
+            "kind": "number"
+          },
+          {
+            "key": "kept_back_count",
+            "label_key": "actions.upgrade.kept_back_count",
+            "kind": "number"
+          },
+          {
+            "key": "download_bytes",
+            "label_key": "actions.upgrade.download_bytes",
+            "kind": "bytes"
+          }
+        ],
+        "tables": [
+          {
+            "id": "packages",
+            "label_key": "actions.upgrade.packages",
+            "source": "packages",
+            "columns": [
+              {
+                "key": "name",
+                "label_key": "actions.upgrade.name_field",
+                "kind": "text"
+              },
+              {
+                "key": "architecture",
+                "label_key": "actions.upgrade.architecture",
+                "kind": "text"
+              },
+              {
+                "key": "installed_version",
+                "label_key": "actions.upgrade.installed_version",
+                "kind": "text"
+              },
+              {
+                "key": "candidate_version",
+                "label_key": "actions.upgrade.candidate_version",
+                "kind": "text"
+              }
+            ]
+          },
+          {
+            "id": "kept_back",
+            "label_key": "actions.upgrade.kept_back",
+            "source": "kept_back",
+            "columns": [
+              {
+                "key": "name",
+                "label_key": "actions.upgrade.name_field",
+                "kind": "text"
+              },
+              {
+                "key": "architecture",
+                "label_key": "actions.upgrade.architecture",
+                "kind": "text"
+              },
+              {
+                "key": "held",
+                "label_key": "actions.upgrade.held",
+                "kind": "boolean"
+              }
+            ]
+          }
+        ]
+      },
+      "result_facts": [
+        {
+          "key": "outcome",
+          "label_key": "actions.upgrade.outcome",
+          "kind": "text"
+        },
+        {
+          "key": "kept_back_count",
+          "label_key": "actions.upgrade.kept_back_count",
+          "kind": "number"
+        },
+        {
+          "key": "reboot_required",
+          "label_key": "actions.upgrade.reboot_required",
+          "kind": "boolean"
+        },
+        {
+          "key": "configuration_review",
+          "label_key": "actions.upgrade.configuration_review",
+          "kind": "boolean"
+        },
+        {
+          "key": "services_restart_required",
+          "label_key": "actions.upgrade.services_restart_required",
+          "kind": "boolean"
+        }
+      ],
+      "recovery_facts": [
+        {
+          "key": "outcome",
+          "label_key": "actions.upgrade.outcome",
+          "kind": "text"
+        },
+        {
+          "key": "kept_back_count",
+          "label_key": "actions.upgrade.kept_back_count",
+          "kind": "number"
+        },
+        {
+          "key": "reboot_required",
+          "label_key": "actions.upgrade.reboot_required",
+          "kind": "boolean"
+        },
+        {
+          "key": "configuration_review",
+          "label_key": "actions.upgrade.configuration_review",
+          "kind": "boolean"
+        },
+        {
+          "key": "services_restart_required",
+          "label_key": "actions.upgrade.services_restart_required",
+          "kind": "boolean"
+        }
+      ]
+    }
+  ]
 }

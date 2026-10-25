@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "properties": {
+    "outcome": {
+      "type": "string",
+      "maxLength": 32,
+      "enum": [
+        "packages_applied",
+        "no_changes",
+        "failed",
+        "interrupted",
+        "not_started"
+      ]
+    },
+    "kept_back_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5000
+    },
+    "reboot_required": {
+      "type": "boolean",
+      "nullable": true
+    },
+    "configuration_review": {
+      "type": "boolean",
+      "nullable": true
+    },
+    "services_restart_required": {
+      "type": "boolean",
+      "nullable": true
+    }
+  },
+  "required": [
+    "outcome",
+    "kept_back_count",
+    "reboot_required",
+    "configuration_review",
+    "services_restart_required"
+  ],
+  "additionalProperties": false
+}
