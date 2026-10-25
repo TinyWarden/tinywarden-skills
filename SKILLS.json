@@ -29,15 +29,15 @@
     },
     {
       "id": "tinywarden/package-updates",
-      "version": "1.1.7",
+      "version": "1.2.6",
       "name": "Package updates",
-      "description": "Simulates pending APT upgrades using the server\u2019s locally cached package lists. It does not install packages or refresh lists, and does not verify repository freshness or security-update counts.",
-      "content_sha256": "3f3367d5686cb55aff9018ba73bd8719eed8b083c1472a2ef4629b45616161c0",
+      "description": "Monitors pending APT updates from cached package lists. Separately authorized actions can refresh lists and perform an explicitly approved conservative upgrade.",
+      "content_sha256": "ead12fa079f7441ec7250aba4d2444d984b30c7fab6f94fadd5f0cc10655d328",
       "archive": {
-        "tag": "package-updates-v1.1.7",
-        "asset": "package-updates-1.1.7.zip",
-        "sha256": "cadd685f6d22e01ec2c9e35d9f1b15e59885862b7a0e7811f37c83675ee6cbea",
-        "size": 14225
+        "tag": "package-updates-v1.2.6",
+        "asset": "package-updates-1.2.6.zip",
+        "sha256": "0acc7522f0bab63fe3539d87f367f4e5cb4a0372e3f886a6d81fcd57ffcff0f8",
+        "size": 40121
       }
     },
     {
