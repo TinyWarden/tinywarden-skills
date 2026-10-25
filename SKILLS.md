@@ -23,5 +23,5 @@ See [development and verification](README.md#development) and the
 [TinyWarden documentation](https://github.com/TinyWarden/tinywarden/blob/main/docs/README.md).
 
 The [author guide](https://github.com/TinyWarden/tinywarden/blob/main/docs/build-skills/README.md)
-covers bootstrap, tests, resources, host access, display, notifications and
-publication. This entry point does not replace the SDK contracts.
+covers bootstrap, tests, resources, host access, independently authorized actions,
+display, notifications and publication. This entry point does not replace the SDK contracts.

@@ -51,7 +51,7 @@ Frozen package README changes require the versioned release process.
 
 SDK3 packages can declare separately permissioned actions. Domain operations belong
 to the package; the platform owns authority, delivery, supervision and recovery
-transport. Read-only monitoring grants never authorize an action. The candidate
+transport. Read-only monitoring grants never authorize an action. The released
 Updates action uses the public `skill_actions` API and its private job state FD;
 do not add APT behavior to the agent or generic SDK. See the canonical
 [maintenance contracts](https://github.com/TinyWarden/tinywarden/blob/main/docs/reference/maintenance-actions.md).
@@ -62,7 +62,7 @@ SDK to validate pending candidates without rewriting the public catalogue/pin.
 The default verifier still uses the pinned SDK and checks unchanged released
 identities outside `UNRELEASED.json`; candidate admission is a separate assertion.
 
-The candidate Updates Conservative upgrade keeps plan resolution, source/archive
+The released Updates Conservative upgrade keeps plan resolution, source/archive
 checks, boot/space/configuration policy and the native transaction in ordinary
 `skills/package-updates/actions/apt_*.py` modules. Use its declared schemas for
 review/results; adding domain fields does not require a platform renderer. Preserve

@@ -1,7 +1,8 @@
-# Contributing monitoring skills
+# Contributing skills
 
 This repository owns official package source, captured-observation tests and
-independent catalogue/ZIP releases. Generic SDK and host observation capabilities
+independent catalogue/ZIP releases, including package-owned action behavior and
+native adapters. Generic SDK and host observation/execution capabilities
 belong to the [host-agent repository](https://github.com/TinyWarden/tinywarden-agent).
 The [platform contributor guide](https://github.com/TinyWarden/tinywarden/blob/main/docs/contributing/README.md)
 explains the repository boundaries.
