@@ -29,15 +29,15 @@
     },
     {
       "id": "tinywarden/package-updates",
-      "version": "1.2.6",
+      "version": "1.2.7",
       "name": "Package updates",
       "description": "Monitors pending APT updates from cached package lists. Separately authorized actions can refresh lists and perform an explicitly approved conservative upgrade.",
-      "content_sha256": "ead12fa079f7441ec7250aba4d2444d984b30c7fab6f94fadd5f0cc10655d328",
+      "content_sha256": "e25f728f81112f8098d92b6301148e0e2ca1203bcf5d0ff706d429900e284322",
       "archive": {
-        "tag": "package-updates-v1.2.6",
-        "asset": "package-updates-1.2.6.zip",
-        "sha256": "0acc7522f0bab63fe3539d87f367f4e5cb4a0372e3f886a6d81fcd57ffcff0f8",
-        "size": 40121
+        "tag": "package-updates-v1.2.7",
+        "asset": "package-updates-1.2.7.zip",
+        "sha256": "5464646d1765759df9bb2171c859356eda5ff276a871776e79922b77133b2624",
+        "size": 40182
       }
     },
     {
