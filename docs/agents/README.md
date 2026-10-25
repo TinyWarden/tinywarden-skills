@@ -72,3 +72,10 @@ Use the shared [action contract](https://github.com/TinyWarden/tinywarden/blob/m
 for retained preparation effects and required nonnullable review-table sources/rows.
 These are generic platform contracts; existing Updates action code needs no
 package-specific reporting or table-rendering patch.
+
+Official packages use canonical `namespace/slug` IDs. The obsolete `alias` manifest
+field is not supported by the current SDK. Update package metadata with a new
+version when removing it; keep collector and action implementations package-owned.
+SDK candidate verification uses the explicit source override and pending release
+marker. Final publication pins the public SDK commit/archive/file hashes and
+verifies a fresh cache before releasing candidate catalogue entries.
