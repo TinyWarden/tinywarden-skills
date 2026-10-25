@@ -4,7 +4,9 @@ Monitoring simulates pending APT upgrades using the server’s locally cached pa
 lists. It does not change those lists or install packages, and does not verify
 repository freshness or security-update counts.
 
-This candidate uses Python SDK v3. Supported platform: Debian 13 on amd64.
+This skill uses Python SDK v3. Supported platform: Debian 13 on amd64.
+Actions require managed agent 0.0.22+ and a compatible app; see
+[skill compatibility](https://github.com/TinyWarden/tinywarden/blob/main/docs/reference/skills/compatibility.md).
 Settings and individual server inheritance are supplied by the TinyWarden engine.
 
 ## Refresh package lists

@@ -2,7 +2,7 @@
   "format": 3,
   "id": "tinywarden/package-updates",
   "alias": "package-updates",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "runtime": "python-3.13-v1",
   "sdk": 3,
   "state_version": 1,
