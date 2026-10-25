@@ -3,54 +3,54 @@
   "skills": [
     {
       "id": "tinywarden/disk-local",
-      "version": "1.1.5",
+      "version": "1.1.6",
       "name": "Disk space",
       "description": "Reads space usage for each supported local filesystem and compares it with warning and critical thresholds. Writable filesystems determine attention; mounts that share capacity are identified. It does not check inodes, quotas or network filesystems.",
-      "content_sha256": "85508ff4165dc45bdbaecd4fd9e781b43e7b29d654ee0ab33a041f7d16c71642",
+      "content_sha256": "0079caa2679064a271d2131cc5a5d92cb1b350ac669bb91151c2df1cd2a7af83",
       "archive": {
-        "tag": "disk-local-v1.1.5",
-        "asset": "disk-local-1.1.5.zip",
-        "sha256": "b68fbab4532789d7d8d1a69b31c1bf613b9c0e4110fbae75b691595b96f7c318",
-        "size": 14216
+        "tag": "disk-local-v1.1.6",
+        "asset": "disk-local-1.1.6.zip",
+        "sha256": "785252c83cb8d296fca2995b043708a0af70b6301d06af403f1f90f9925acbc6",
+        "size": 14210
       }
     },
     {
       "id": "tinywarden/fstrim-status",
-      "version": "1.1.6",
+      "version": "1.1.7",
       "name": "Filesystem trim",
       "description": "Checks whether automatic filesystem trim is scheduled and whether its last run completed successfully.",
-      "content_sha256": "d0f0b132e2a138884f1d390f8ee77cd7d3211a83730ff71e49894fb855972d11",
+      "content_sha256": "36018c9e62ee4f40c4e84617d4ec5a372aa2abc3638e9d58e7ff20dcd95e7600",
       "archive": {
-        "tag": "fstrim-status-v1.1.6",
-        "asset": "fstrim-status-1.1.6.zip",
-        "sha256": "4f39185488593445f05f90ad57555cd3e4ea63cca159c34463ee393d5bf4c22b",
-        "size": 17959
+        "tag": "fstrim-status-v1.1.7",
+        "asset": "fstrim-status-1.1.7.zip",
+        "sha256": "8c0fa2ae0ba206bd228844668eb1e6a1f0d79f9d488d7066d71c665c321b1c36",
+        "size": 17955
       }
     },
     {
       "id": "tinywarden/package-updates",
-      "version": "1.2.7",
+      "version": "1.2.8",
       "name": "Package updates",
       "description": "Monitors pending APT updates from cached package lists. Separately authorized actions can refresh lists and perform an explicitly approved conservative upgrade.",
-      "content_sha256": "e25f728f81112f8098d92b6301148e0e2ca1203bcf5d0ff706d429900e284322",
+      "content_sha256": "a1fd5fdf2ab4d3777babf65de78b4beba7cc588c0c7da350682ebeef14aeda38",
       "archive": {
-        "tag": "package-updates-v1.2.7",
-        "asset": "package-updates-1.2.7.zip",
-        "sha256": "5464646d1765759df9bb2171c859356eda5ff276a871776e79922b77133b2624",
-        "size": 40182
+        "tag": "package-updates-v1.2.8",
+        "asset": "package-updates-1.2.8.zip",
+        "sha256": "9fe684483c01582319071c511330806eb6a80a348c92228b85e92c51db8b3c46",
+        "size": 40176
       }
     },
     {
       "id": "tinywarden/reboot-required",
-      "version": "1.1.6",
+      "version": "1.1.7",
       "name": "Reboot status",
       "description": "Checks whether installed software has requested a reboot and lists the requesting packages when the server records them.",
-      "content_sha256": "fe5feeba6b9ac55ae56180fd40afb56ea97cd45610a68982b05a9f673cbb9876",
+      "content_sha256": "ee7319abb2e38f087116941c5b61ef5757d48a5698f241bf35e7a5d42701be3a",
       "archive": {
-        "tag": "reboot-required-v1.1.6",
-        "asset": "reboot-required-1.1.6.zip",
-        "sha256": "af2a81efe816c2e55888ebb0069d38dfbe76bcee3a6b358353cf6880c5390dc7",
-        "size": 12244
+        "tag": "reboot-required-v1.1.7",
+        "asset": "reboot-required-1.1.7.zip",
+        "sha256": "8af72c202c7636001d07965760794c76b1f9c3bfd68da002ee0e6f30799bd0dd",
+        "size": 12239
       }
     },
     {

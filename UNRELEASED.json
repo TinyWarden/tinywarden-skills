@@ -1,8 +1,3 @@
 {
-  "skills": [
-    "disk-local",
-    "fstrim-status",
-    "reboot-required",
-    "package-updates"
-  ]
+  "skills": []
 }
