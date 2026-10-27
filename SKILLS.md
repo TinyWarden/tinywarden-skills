@@ -25,3 +25,8 @@ See [development and verification](README.md#development) and the
 The [author guide](https://github.com/TinyWarden/tinywarden/blob/main/docs/build-skills/README.md)
 covers bootstrap, tests, resources, host access, independently authorized actions,
 display, notifications and publication. This entry point does not replace the SDK contracts.
+
+The [Fleet action-menu guide](https://github.com/TinyWarden/tinywarden/blob/main/docs/build-skills/actions.md#add-items-to-fleet-skill-actions)
+explains how manifest actions and catalogue labels become available items grouped
+under their owning skill. Publish the changed package normally and review its exact
+action permission. Compatible additions need no app/agent registration or rebuild.

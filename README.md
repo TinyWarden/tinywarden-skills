@@ -15,6 +15,8 @@ server; its initial selection is empty.
 Monitoring observes and reports without changing the host. Updates 1.2.6 also
 supplies separately authorized **Refresh package lists** and **Conservative upgrade**
 actions through the [Fleet maintenance workflow](https://github.com/TinyWarden/tinywarden/blob/main/docs/using/package-maintenance.md).
+Open a server's **Manage server → Skill actions… → Package updates**, or select servers
+and use **More actions → Skill actions…**. The app groups available actions by skill.
 Use managed agent 0.0.22+ and a compatible app; monitoring permission never grants
 action execution. The skill owns package-management behavior; the universal agent
 supplies generic delivery, authorization, supervision and recovery. No official
@@ -24,6 +26,8 @@ skill automatically reboots a server or executes filesystem trim.
 
 Start with the [human skill-building guide](https://github.com/TinyWarden/tinywarden/blob/main/docs/build-skills/README.md)
 and [action authoring](https://github.com/TinyWarden/tinywarden/blob/main/docs/build-skills/actions.md).
+To contribute an item to that picker, follow
+[Add items to Fleet Skill actions](https://github.com/TinyWarden/tinywarden/blob/main/docs/build-skills/actions.md#add-items-to-fleet-skill-actions).
 
 Use Python 3.13. The SDK is fetched at the exact commit and hashes in
 [SDK.lock.json](SDK.lock.json); no app or host-agent checkout is required.
