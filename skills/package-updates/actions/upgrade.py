@@ -18,7 +18,10 @@ from . import apt_transaction
 
 def _facts(outcome, kept=0, native=None):
     native = native or {}
-    return {"outcome": outcome, "kept_back_count": kept,
+    label = {"packages_applied": "Packages upgraded", "no_changes": "Nothing to upgrade",
+             "failed": "Failed", "interrupted": "Outcome uncertain",
+             "not_started": "Not started"}[outcome]
+    return {"outcome": label, "kept_back_count": kept,
             "reboot_required": native.get("reboot_required"),
             "configuration_review": native.get("configuration_review"),
             "services_restart_required": native.get("services_restart_required")}

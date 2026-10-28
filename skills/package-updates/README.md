@@ -68,6 +68,14 @@ package names, installed/new versions, download size and kept-back packages in
 Fleet, then explicitly approve that plan. Downloads and final native inputs are
 checked against the approved plan; a changed plan must be prepared again.
 
+For an individual server, selecting the action starts preparation in one progress
+window. Review the package versions there and choose **Approve and run**. The same
+window shows application, verification and the result; closing it leaves the work
+saved in Activity and available through **View progress**. If there are no eligible changes, the operation
+finishes without installation approval. Bulk actions retain target/order review.
+Outcome facts use readable labels such as **Packages upgraded** and **Outcome
+uncertain**; the private execution receipt retains its machine identifiers.
+
 The action preserves held packages and refuses additions, removals, downgrades,
 unsafe repositories, unsupported hooks, boot/kernel/initramfs changes and
 insufficient writable space/inodes. It retains native locks through final checks

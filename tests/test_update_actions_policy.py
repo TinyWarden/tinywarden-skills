@@ -29,6 +29,22 @@ def record(name, paths=(), triggers=(), section='utils'):
     return {'name': name, 'paths': paths, 'triggers': triggers, 'section': section}
 
 class PolicyTests(unittest.TestCase):
+    def test_upgrade_outcome_labels_preserve_uncertain_and_missing_evidence(self):
+        tree = ast.parse((ROOT/'upgrade.py').read_text())
+        definition = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == '_facts')
+        namespace = {}
+        exec(compile(ast.Module(body=[definition], type_ignores=[]), 'upgrade.py', 'exec'), namespace)
+        facts = namespace['_facts']
+        schema = json.loads((ROOT/'upgrade-result.schema.json').read_text())
+        self.assertEqual(schema, json.loads((ROOT/'upgrade-recovery.schema.json').read_text()))
+        for outcome in ['packages_applied', 'no_changes', 'failed', 'interrupted', 'not_started']:
+            value = facts(outcome, 2)
+            self.assertIn(value['outcome'], schema['properties']['outcome']['enum'])
+            self.assertEqual(value['kept_back_count'], 2)
+            self.assertIsNone(value['reboot_required'])
+        self.assertEqual(facts('interrupted')['outcome'], 'Outcome uncertain')
+        self.assertFalse(facts('packages_applied', native={'reboot_required': False})['reboot_required'])
+
     def setUp(self):
         self.ordinary = ('editor', 'amd64')
         self.handler = ('initramfs-tools', 'all')

@@ -5,11 +5,11 @@
       "type": "string",
       "maxLength": 32,
       "enum": [
-        "packages_applied",
-        "no_changes",
-        "failed",
-        "interrupted",
-        "not_started"
+        "Packages upgraded",
+        "Nothing to upgrade",
+        "Failed",
+        "Outcome uncertain",
+        "Not started"
       ]
     },
     "kept_back_count": {
