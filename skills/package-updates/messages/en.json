@@ -368,7 +368,7 @@
     "parameters": {}
   },
   "fstrim_scheduled": {
-    "text": "Scheduled \u2014 awaiting a recorded run.",
+    "text": "Scheduled — awaiting a recorded run.",
     "parameters": {}
   },
   "fstrim_awaiting_result": {
@@ -686,11 +686,11 @@
     "parameters": {}
   },
   "package_list_partial_value": {
-    "text": "APT did not provide a complete package list in a recognized format. Counts above remain the reported totals; unavailable versions are shown as \u2014.",
+    "text": "APT did not provide a complete package list in a recognized format. Counts above remain the reported totals; unavailable versions are shown as —.",
     "parameters": {}
   },
   "version_not_provided_value": {
-    "text": "\u2014",
+    "text": "—",
     "parameters": {}
   },
   "dashboard_upgraded": {
@@ -714,7 +714,7 @@
     "parameters": {}
   },
   "actions.refresh.description": {
-    "text": "Refresh package lists and verify the saved result. This action does not install packages.",
+    "text": "Refresh package lists and read available updates. No packages are installed.",
     "parameters": {}
   },
   "actions.refresh.outcome": {
@@ -903,6 +903,22 @@
   },
   "actions.reason.maintenance_package_state": {
     "text": "Package state needs local review. No automatic configure or repair is attempted.",
+    "parameters": {}
+  },
+  "actions.refresh.upgraded": {
+    "text": "Available upgrades",
+    "parameters": {}
+  },
+  "actions.refresh.installed": {
+    "text": "New packages",
+    "parameters": {}
+  },
+  "actions.refresh.removed": {
+    "text": "Removals",
+    "parameters": {}
+  },
+  "actions.refresh.held_back": {
+    "text": "Kept back",
     "parameters": {}
   }
 }

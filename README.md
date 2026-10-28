@@ -17,7 +17,7 @@ supplies separately authorized **Refresh package lists** and **Conservative upgr
 actions through the [Fleet maintenance workflow](https://github.com/TinyWarden/tinywarden/blob/main/docs/using/package-maintenance.md).
 Open a server's **Manage server → Skill actions… → Package updates**, or select servers
 and use **More actions → Skill actions…**. The app groups available actions by skill.
-Use managed agent 0.0.22+ and a compatible app; monitoring permission never grants
+Updates 1.2.9 needs managed agent 0.0.24+ and a compatible app; monitoring permission never grants
 action execution. The skill owns package-management behavior; the universal agent
 supplies generic delivery, authorization, supervision and recovery. No official
 skill automatically reboots a server or executes filesystem trim.

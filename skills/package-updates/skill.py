@@ -66,6 +66,10 @@ def collect(settings, host):
     argv = ["--simulate", "upgrade"] if settings["package_mode"] == "upgrade" else ["--simulate", "--with-new-pkgs", "upgrade"]
     result = host.request("command.capture", {"executable": "/usr/bin/apt-get", "argv": argv, "inputs": INPUTS,
                                             "helpers": HELPERS, "empty_directories": ["/etc/apt/apt.conf.d"]})
+    return parse_output(settings, result)
+
+
+def parse_output(settings, result):
     if result["exit_code"] != 0 or result["stderr_bytes"] or not result["stdout"].endswith("\n"):
         return {"problem": "package_output_unavailable"}
     counts = None

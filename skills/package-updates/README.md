@@ -5,17 +5,24 @@ lists. It does not change those lists or install packages, and does not verify
 repository freshness or security-update counts.
 
 This skill uses Python SDK v3. Supported platform: Debian 13 on amd64.
-Actions require managed agent 0.0.22+ and a compatible app; see
+This package’s actions require managed agent 0.0.24+ and a compatible app; see
 [skill compatibility](https://github.com/TinyWarden/tinywarden/blob/main/docs/reference/skills/compatibility.md).
 Settings and individual server inheritance are supplied by the TinyWarden engine.
 
 ## Refresh package lists
 
 The separate Refresh package lists action runs the fixed APT index refresh with
-strict repository checks. It never installs packages. Preparation checks policy
+strict repository checks, then runs a read-only upgrade simulation and returns
+available-upgrade, new-dependency, removal and kept-back counts. It never installs
+packages. Its explicit local verification checks the saved result without running
+unrelated monitoring skills. Preparation checks policy
 without running the refresh; execution requires both an exact package action grant
 in TinyWarden and local administrator trust for its publisher and execution class.
 Monitoring permission alone does not permit this action.
+
+Choose Refresh from a single server’s Skill actions menu to start immediately.
+Bulk selections retain target review. Use **View progress** beside that server or
+in its menu to reopen work after closing the dialog or reloading the page.
 
 The action needs `apt` and `python3-apt`. It refuses unsafe repository settings and
 unsupported APT update hooks. A failed or interrupted refresh may have changed some

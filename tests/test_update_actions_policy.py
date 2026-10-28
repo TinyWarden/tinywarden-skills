@@ -160,3 +160,67 @@ class ConfigurationIdentityTests(unittest.TestCase):
         self.assertNotEqual(before,scope['configuration_digest']())
         scope['apt_pkg'].config=self.config({'Acquire::Retries':'0'},['second','first'])
         self.assertNotEqual(before,scope['configuration_digest']())
+
+class RefreshReaderTests(unittest.TestCase):
+    def reader(self, output, code=0, diagnostics=0):
+        import contextlib
+        import importlib.util
+        import io
+        import os
+        spec=importlib.util.spec_from_file_location('refresh_plan_parser',ROOT.parent/'skill.py')
+        skill=importlib.util.module_from_spec(spec);spec.loader.exec_module(skill)
+        calls=[]
+        child=SimpleNamespace(stdout=io.BytesIO(output),stderr=io.BytesIO(b''),wait=lambda:code)
+        def launch(argv,**kwargs):
+            calls.append((argv,kwargs));return child
+        namespace={'MaintenanceError':Error,'parse_output':skill.parse_output,'os':os,
+                   'read_simulation_output':lambda child:(output,diagnostics),
+                   'package_lock':contextlib.nullcontext,'readonly_budget':lambda *a,**k:contextlib.nullcontext(),
+                   'subprocess':SimpleNamespace(Popen=launch,DEVNULL=-3,PIPE=-1,STDOUT=-2)}
+        tree=ast.parse((ROOT/'refresh.py').read_text())
+        nodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in {'available_updates','valid_summary'} or isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='SUMMARY_KEYS' for t in n.targets)]
+        exec(compile(ast.Module(body=nodes,type_ignores=[]),'refresh.py','exec'),namespace)
+        return namespace,calls
+
+    def test_refresh_reads_a_fixed_simulation_and_returns_counts(self):
+        output=b'2 upgraded, 1 newly installed, 0 to remove and 3 not upgraded.\n'
+        for mode,argv in [('upgrade',['/usr/bin/apt-get','--simulate','upgrade']),('with-new-pkgs',['/usr/bin/apt-get','--simulate','--with-new-pkgs','upgrade'])]:
+            ns,calls=self.reader(output)
+            self.assertEqual(ns['available_updates']({'package_mode':mode}),{'upgraded':2,'installed':1,'removed':0,'held_back':3})
+            self.assertEqual(calls[0][0],argv)
+            self.assertEqual(calls[0][1]['env']['LC_ALL'],'C')
+
+    def test_refresh_rejects_failed_ambiguous_or_oversized_reads(self):
+        for output,code in [(b'0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.\n',1),(b'partial output\n',0),(b'x'*(1024*1024+1),0)]:
+            ns,_=self.reader(output,code)
+            with self.assertRaisesRegex(Error,'maintenance_reader_failed'):
+                ns['available_updates']({'package_mode':'upgrade'})
+
+    def test_receipt_summary_is_bounded_and_cannot_claim_failure_as_a_result(self):
+        ns,_=self.reader(b'')
+        good={'upgraded':0,'installed':0,'removed':0,'held_back':0}
+        self.assertTrue(ns['valid_summary'](good,'refreshed'))
+        self.assertFalse(ns['valid_summary'](good,'failed'))
+        for bad in [None,{},dict(good,upgraded=True),dict(good,removed=-1),dict(good,upgraded=1000001),dict(good,extra=0)]:
+            self.assertFalse(ns['valid_summary'](bad,'refreshed'))
+
+    def test_simulation_diagnostics_are_not_silently_merged_into_success(self):
+        ns,_=self.reader(b'0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.\n',diagnostics=1)
+        with self.assertRaisesRegex(Error,'maintenance_reader_failed'):
+            ns['available_updates']({'package_mode':'upgrade'})
+
+    def test_both_streams_share_one_bounded_budget(self):
+        import os,selectors,subprocess,sys
+        tree=ast.parse((ROOT/'refresh.py').read_text())
+        ns={'os':os,'selectors':selectors,'MaintenanceError':Error}
+        nodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='read_simulation_output']
+        exec(compile(ast.Module(body=nodes,type_ignores=[]),'refresh.py','exec'),ns)
+        for count in [10000,700000]:
+            child=subprocess.Popen([sys.executable,'-c',f'import os;os.write(1,b"x"*{count});os.write(2,b"y"*{count})'],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            try:
+                if count==10000:self.assertEqual(ns['read_simulation_output'](child),(b'x'*count,count))
+                else:
+                    with self.assertRaisesRegex(Error,'maintenance_reader_failed'):ns['read_simulation_output'](child)
+            finally:
+                if child.poll() is None:child.kill()
+                child.wait();child.stdout.close();child.stderr.close()

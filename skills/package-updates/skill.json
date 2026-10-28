@@ -1,7 +1,7 @@
 {
   "format": 3,
   "id": "tinywarden/package-updates",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "runtime": "python-3.13-v1",
   "sdk": 3,
   "state_version": 1,
@@ -126,9 +126,24 @@
       },
       "result_facts": [
         {
-          "key": "outcome",
-          "label_key": "actions.refresh.outcome",
-          "kind": "text"
+          "key": "upgraded",
+          "label_key": "actions.refresh.upgraded",
+          "kind": "number"
+        },
+        {
+          "key": "installed",
+          "label_key": "actions.refresh.installed",
+          "kind": "number"
+        },
+        {
+          "key": "removed",
+          "label_key": "actions.refresh.removed",
+          "kind": "number"
+        },
+        {
+          "key": "held_back",
+          "label_key": "actions.refresh.held_back",
+          "kind": "number"
         }
       ],
       "recovery_facts": [
@@ -137,7 +152,8 @@
           "label_key": "actions.refresh.outcome",
           "kind": "text"
         }
-      ]
+      ],
+      "verification": "local"
     },
     {
       "id": "packages.upgrade_conservative.v1",
