@@ -10,6 +10,7 @@ from skill_actions import ActionFailure
 from .apt_policy import MaintenanceError, configure, package_lock, readonly_budget
 from .apt_refresh import strict_refresh
 from ..skill import parse_output
+from .logs import log
 
 
 def _encode(value):
@@ -74,6 +75,7 @@ def _preflight(context):
 
 
 def prepare(request, context):
+    log(context, "policy")
     _preflight(context)
     return {"plan_json": _encode({"operation": "refresh_package_lists"}),
             "has_changes": True, "effect": "none", "result": None}
@@ -97,7 +99,9 @@ def apply(request, context):
         started = True
 
     try:
+        log(context, "refresh")
         strict_refresh(before_start)
+        log(context, "read_updates")
         summary = available_updates(request["settings"])
         receipt = _receipt(context, "refreshed", summary)
         _save(context, receipt)
@@ -114,6 +118,7 @@ def apply(request, context):
 
 
 def verify(request, context):
+    log(context, "verify_refresh")
     _preflight(context)
     try:
         with package_lock():
@@ -126,6 +131,7 @@ def verify(request, context):
 
 
 def inspect(request, context):
+    log(context, "inspect")
     _preflight(context)
     try:
         with package_lock():

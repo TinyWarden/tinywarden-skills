@@ -920,5 +920,49 @@
   "actions.refresh.held_back": {
     "text": "Kept back",
     "parameters": {}
+  },
+  "actions.log.policy": {
+    "text": "Checking package-management policy.",
+    "parameters": {}
+  },
+  "actions.log.refresh": {
+    "text": "Refreshing package lists.",
+    "parameters": {}
+  },
+  "actions.log.read_updates": {
+    "text": "Reading available updates without installing packages.",
+    "parameters": {}
+  },
+  "actions.log.verify_refresh": {
+    "text": "Checking the saved refresh result.",
+    "parameters": {}
+  },
+  "actions.log.package_state": {
+    "text": "Checking the installed package state.",
+    "parameters": {}
+  },
+  "actions.log.plan": {
+    "text": "Preparing the exact upgrade plan.",
+    "parameters": {}
+  },
+  "actions.log.capacity": {
+    "text": "Checking boot requirements, writable space and inodes.",
+    "parameters": {}
+  },
+  "actions.log.download": {
+    "text": "Staging the approved package archives.",
+    "parameters": {}
+  },
+  "actions.log.apply": {
+    "text": "Checking and applying the approved package plan.",
+    "parameters": {}
+  },
+  "actions.log.verify_upgrade": {
+    "text": "Checking installed versions against the saved receipt.",
+    "parameters": {}
+  },
+  "actions.log.inspect": {
+    "text": "Inspecting the saved operation without repeating it.",
+    "parameters": {}
   }
 }

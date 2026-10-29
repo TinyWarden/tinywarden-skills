@@ -9,6 +9,19 @@ This package’s actions require managed agent 0.0.24+ and a compatible app; see
 [skill compatibility](https://github.com/TinyWarden/tinywarden/blob/main/docs/reference/skills/compatibility.md).
 Settings and individual server inheritance are supplied by the TinyWarden engine.
 
+## Operation log
+
+On agent 0.0.25+ with a compatible app, both actions report catalogue messages
+through the shared SDK logging API. Open **Operation log** in progress or its saved
+Activity result to see received stage times, checks and diagnostic failures, or
+choose **Copy details**. A failure opens the log automatically. The log does not
+contain raw APT output, authentication files or private execution receipts.
+
+Logging is optional and bounded. Unavailable delivery never retries installation,
+changes approval or turns a failed result into success. Older compatible agents
+still execute the same actions and show saved platform stages without detailed
+skill entries. The original action result and verification remain authoritative.
+
 ## Refresh package lists
 
 The separate Refresh package lists action runs the fixed APT index refresh with

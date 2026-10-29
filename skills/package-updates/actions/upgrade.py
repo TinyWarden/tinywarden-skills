@@ -14,6 +14,7 @@ from .apt_boot import installed_metadata
 from .apt_capacity import capacity
 from .apt_refresh import strict_refresh
 from . import apt_transaction
+from .logs import log
 
 
 def _facts(outcome, kept=0, native=None):
@@ -100,11 +101,16 @@ def prepare(request, context):
         nonlocal refreshed
         refreshed = True
     try:
+        log(context, "policy")
         _preflight()
+        log(context, "refresh")
         strict_refresh(before_refresh)
+        log(context, "package_state")
         audit()
         with package_lock(), protected_mirror_cache():
+            log(context, "plan")
             cache, plan = resolve()
+            log(context, "capacity")
             capacity(plan, installed=installed_metadata(cache))
         changed = bool(plan["packages"])
         no_changes = None if changed else {"effect": "changed", "reason": None,
@@ -119,6 +125,7 @@ def prepare(request, context):
 def fetch(request, context):
     try:
         _preflight()
+        log(context, "download")
         apt_transaction.fetch(digest(request["plan"]))
     except Exception as error:
         _failure(error, _facts("not_started", request["plan"]["kept_back_count"]))
@@ -135,6 +142,7 @@ def apply(request, context):
         started = True
     try:
         _preflight()
+        log(context, "apply")
         native = apt_transaction.apply(digest(request["plan"]), before_start)
         facts = _facts(native["outcome"], kept, native)
         proof = {key: native[key] for key in ("state_sha256", "selection_sha256")}
@@ -149,6 +157,7 @@ def apply(request, context):
 
 def verify(request, context):
     try:
+        log(context, "verify_upgrade")
         _preflight()
         with package_lock():
             value = _load(context)
@@ -162,6 +171,7 @@ def verify(request, context):
 
 def inspect(request, context):
     try:
+        log(context, "inspect")
         _preflight()
         with package_lock():
             audit()
