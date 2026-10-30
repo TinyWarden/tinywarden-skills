@@ -186,10 +186,11 @@ class RefreshReaderTests(unittest.TestCase):
         spec=importlib.util.spec_from_file_location('refresh_plan_parser',ROOT.parent/'skill.py')
         skill=importlib.util.module_from_spec(spec);spec.loader.exec_module(skill)
         calls=[]
-        child=SimpleNamespace(stdout=io.BytesIO(output),stderr=io.BytesIO(b''),wait=lambda:code)
+        child=SimpleNamespace(stdout=io.BytesIO(output),stderr=io.BytesIO(b''),wait=lambda:code,returncode=code)
         def launch(argv,**kwargs):
             calls.append((argv,kwargs));return child
         namespace={'MaintenanceError':Error,'parse_output':skill.parse_output,'os':os,
+                   'log_command':lambda *a:None,'exit_code':lambda *a:None,
                    'read_simulation_output':lambda child:(output,diagnostics),
                    'package_lock':contextlib.nullcontext,'readonly_budget':lambda *a,**k:contextlib.nullcontext(),
                    'subprocess':SimpleNamespace(Popen=launch,DEVNULL=-3,PIPE=-1,STDOUT=-2)}
@@ -228,7 +229,7 @@ class RefreshReaderTests(unittest.TestCase):
     def test_both_streams_share_one_bounded_budget(self):
         import os,selectors,subprocess,sys
         tree=ast.parse((ROOT/'refresh.py').read_text())
-        ns={'os':os,'selectors':selectors,'MaintenanceError':Error}
+        ns={'os':os,'selectors':selectors,'MaintenanceError':Error,'tee':lambda *a:None}
         nodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='read_simulation_output']
         exec(compile(ast.Module(body=nodes,type_ignores=[]),'refresh.py','exec'),ns)
         for count in [10000,700000]:

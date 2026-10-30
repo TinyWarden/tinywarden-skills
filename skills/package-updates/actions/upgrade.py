@@ -14,7 +14,7 @@ from .apt_boot import installed_metadata
 from .apt_capacity import capacity
 from .apt_refresh import strict_refresh
 from . import apt_transaction
-from .logs import log
+from .logs import log, failure, output
 
 
 def _facts(outcome, kept=0, native=None):
@@ -104,7 +104,7 @@ def prepare(request, context):
         log(context, "policy")
         _preflight()
         log(context, "refresh")
-        strict_refresh(before_refresh)
+        strict_refresh(before_refresh, context)
         log(context, "package_state")
         audit()
         with package_lock(), protected_mirror_cache():
@@ -119,6 +119,7 @@ def prepare(request, context):
         return {"plan_json": canonical(plan).decode(), "has_changes": changed,
                 "effect": "changed", "result": no_changes}
     except Exception as error:
+        failure(context, error)
         _failure(error, _facts("not_started"), "unknown" if refreshed else "none")
 
 
@@ -128,6 +129,7 @@ def fetch(request, context):
         log(context, "download")
         apt_transaction.fetch(digest(request["plan"]))
     except Exception as error:
+        failure(context, error)
         _failure(error, _facts("not_started", request["plan"]["kept_back_count"]))
     return {"downloaded": True, "plan_sha256": context.plan_sha256}
 
@@ -143,11 +145,14 @@ def apply(request, context):
     try:
         _preflight()
         log(context, "apply")
+        output(context, "python-apt: install_archives\n")
         native = apt_transaction.apply(digest(request["plan"]), before_start)
+        output(context, "python-apt: installation and verification completed\n")
         facts = _facts(native["outcome"], kept, native)
         proof = {key: native[key] for key in ("state_sha256", "selection_sha256")}
         receipt = _save(context, "packages_applied", facts, proof)
     except Exception as error:
+        failure(context, error)
         facts = _facts("failed" if started else "not_started", kept)
         receipt = _save(context, "failed", facts) if started else None
         _failure(error, facts, "unknown" if started else "none", receipt)
@@ -165,6 +170,7 @@ def verify(request, context):
                 raise MaintenanceError("maintenance_receipt_invalid")
             _verify_proof(value["proof"])
     except Exception as error:
+        failure(context, error)
         _failure(error, _facts("interrupted"), "unknown")
     return {"verified": True}
 
@@ -185,4 +191,5 @@ def inspect(request, context):
             # An interrupted native operation is never repeated or inferred successful.
             context.commit(value["facts"])
     except Exception as error:
+        failure(context, error)
         _failure(error, _facts("interrupted"), "unknown")

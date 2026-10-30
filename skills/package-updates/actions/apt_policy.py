@@ -1,5 +1,6 @@
 """Updates package native input, lock, configuration and download policy."""
 import contextlib
+from .logs import command as log_command, exit_code, tee
 from collections import deque
 import hashlib
 import json
@@ -202,16 +203,19 @@ def readonly_budget(child, seconds=30):
         child.wait()
 
 def readonly_output(command, limit=65536, seconds=30):
+    log_command(None, command)
     child = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
-                             stderr=subprocess.DEVNULL, start_new_session=True)
+                             start_new_session=True)
     try:
         with readonly_budget(child, seconds):
             output = child.stdout.read(limit + 1)
+            tee(output[:limit], "stdout")
             if len(output) > limit or child.wait() != 0:
                 raise MaintenanceError('maintenance_reader_failed')
             return output
     finally:
         child.stdout.close()
+        exit_code(None, child.returncode)
 
 @contextlib.contextmanager
 def package_lock():
@@ -234,14 +238,19 @@ def package_lock():
         lock.__exit__(None, None, None)
 
 def audit():
-    child = subprocess.Popen(['/usr/bin/dpkg', '--audit'], stdin=subprocess.DEVNULL,
-                             stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, start_new_session=True)
+    argv = ['/usr/bin/dpkg', '--audit']
+    log_command(None, argv)
+    child = subprocess.Popen(argv, stdin=subprocess.DEVNULL,
+                             stdout=subprocess.PIPE, start_new_session=True)
     try:
         with readonly_budget(child):
-            if child.stdout.read(1) or child.wait() != 0:
+            output = child.stdout.read(65537)
+            tee(output[:65536], "stdout")
+            if output or child.wait() != 0:
                 raise MaintenanceError('maintenance_package_state')
     finally:
         child.stdout.close()
+        exit_code(None, child.returncode)
 
 class FetchProgress(apt.progress.base.AcquireProgress):
     def __init__(self):
@@ -251,6 +260,9 @@ class FetchProgress(apt.progress.base.AcquireProgress):
 
     def fail(self, item):
         self.failed = True
+        message = getattr(getattr(item, "owner", item), "error_text", "")
+        if message:
+            tee((str(message) + "\n").encode("utf-8", errors="replace"), "stderr")
 
     def media_change(self, media, drive):
         return False

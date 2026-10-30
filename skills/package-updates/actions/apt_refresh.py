@@ -2,12 +2,13 @@ import os
 import re
 import subprocess
 from .apt_policy import MaintenanceError, trusted_sources, budget_clock
+from .logs import command as log_command, exit_code
 """Strict index-only refresh; bounded cancellation never targets dpkg."""
 import selectors
 import signal
 
 
-def strict_refresh(on_start):
+def strict_refresh(on_start, context=None):
     trusted_sources(False)
     read_fd, write_fd = os.pipe()
     child = None
@@ -16,8 +17,9 @@ def strict_refresh(on_start):
         selector.register(read_fd, selectors.EVENT_READ)
         command = ['/usr/bin/apt-get', 'update', '--error-on=any', '-o', 'APT::Status-Fd=' + str(write_fd)]
         on_start()  # Persist possible partial changes before starting apt-get.
-        child = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
-                                 stderr=subprocess.DEVNULL, pass_fds=(write_fd,), start_new_session=True)
+        log_command(context, command)
+        child = subprocess.Popen(command, stdin=subprocess.DEVNULL,
+                                 pass_fds=(write_fd,), start_new_session=True)
         os.close(write_fd)
         write_fd = None
         started = changed = budget_clock()
@@ -53,6 +55,8 @@ def strict_refresh(on_start):
             except subprocess.TimeoutExpired:
                 os.killpg(child.pid, signal.SIGKILL)
                 child.wait()
+        if child is not None:
+            exit_code(context, child.returncode)
         selector.close()
         os.close(read_fd)
         if write_fd is not None:

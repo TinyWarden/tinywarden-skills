@@ -33,7 +33,7 @@ def main():
                         help='Also admit and reproducibly build unpublished source; never updates SKILLS.json')
     args = parser.parse_args()
     bootstrap()
-    for pattern in ('test_official.py', 'test_services.py', 'test_update_actions_policy.py', 'test_verification.py'):
+    for pattern in ('test_official.py', 'test_services.py', 'test_update_actions_policy.py', 'test_update_transcript.py', 'test_verification.py'):
         subprocess.run([sys.executable,'-B','-m','unittest','discover','-s','tests','-p',pattern], cwd=ROOT, check=True)
     if args.sandbox:
         subprocess.run([sys.executable,'-B','-m','unittest','discover','-s','tests','-p','test_disk_display_sandbox.py'], cwd=ROOT, check=True)

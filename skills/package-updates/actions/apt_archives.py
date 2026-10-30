@@ -5,6 +5,7 @@ from .apt_capacity import capacity
 import tarfile
 import posixpath
 from urllib.parse import urlsplit, unquote
+from .logs import command as log_command, exit_code
 
 POLICY.update(mirror_policy=1)
 
@@ -130,9 +131,11 @@ def cache_path(raw, downloading=False):
 @contextlib.contextmanager
 def deb_archive(path, control=False):
     flag = '--ctrl-tarfile' if control else '--fsys-tarfile'
-    child = subprocess.Popen(['/usr/bin/dpkg-deb', flag, str(path)],
+    argv = ['/usr/bin/dpkg-deb', flag, str(path)]
+    log_command(None, argv)
+    child = subprocess.Popen(argv,
                              stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
-                             stderr=subprocess.DEVNULL, start_new_session=True)
+                             start_new_session=True)
     try:
         with readonly_budget(child):
             with tarfile.open(fileobj=child.stdout, mode='r|') as content:
@@ -143,6 +146,7 @@ def deb_archive(path, control=False):
         raise MaintenanceError('maintenance_archive_invalid') from None
     finally:
         child.stdout.close()
+        exit_code(None, child.returncode)
 
 
 def archive_metadata(path, expected):

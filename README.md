@@ -41,6 +41,13 @@ Agent 0.0.25+ and a compatible app show those entries during execution and in sa
 Activity results. Older compatible agents keep the same action behavior with
 platform stage events only. Logging never grants permission or repeats work.
 
+Updates 1.2.12 retains actual native command output/errors and exit codes for the
+shared Full transcript. Agent 0.0.26+ captures inherited streams and exposes the
+optional `context.output` API for every skill. See the [author guide and complete
+logging contract](https://github.com/TinyWarden/tinywarden/blob/main/docs/build-skills/actions.md#report-useful-progress)
+for redirects, native libraries, capture limits and older runtimes. Domain package
+operations remain in this repository; no per-skill agent branch is required.
+
 ## Development
 
 Start with the [human skill-building guide](https://github.com/TinyWarden/tinywarden/blob/main/docs/build-skills/README.md)

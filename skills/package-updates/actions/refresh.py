@@ -10,7 +10,7 @@ from skill_actions import ActionFailure
 from .apt_policy import MaintenanceError, configure, package_lock, readonly_budget
 from .apt_refresh import strict_refresh
 from ..skill import parse_output
-from .logs import log
+from .logs import log, command as log_command, exit_code, tee, failure
 
 
 def _encode(value):
@@ -100,12 +100,13 @@ def apply(request, context):
 
     try:
         log(context, "refresh")
-        strict_refresh(before_start)
+        strict_refresh(before_start, context)
         log(context, "read_updates")
-        summary = available_updates(request["settings"])
+        summary = available_updates(request["settings"], context)
         receipt = _receipt(context, "refreshed", summary)
         _save(context, receipt)
     except Exception as error:
+        failure(context, error)
         outcome, effect = ("failed", "unknown") if started else ("not_started", "none")
         receipt = _receipt(context, "failed") if started else None
         if receipt is not None:
@@ -157,7 +158,7 @@ def valid_summary(summary, outcome):
             sum(summary.values()) <= 1000000)
 
 
-def available_updates(settings):
+def available_updates(settings, context=None):
     """Read the newly cached plan; simulation never authorizes installation."""
     command = ["/usr/bin/apt-get", "--simulate"]
     if settings["package_mode"] == "with-new-pkgs":
@@ -165,6 +166,7 @@ def available_updates(settings):
     command.append("upgrade")
     # Native package/list locks keep the read consistent with local package work.
     with package_lock():
+        log_command(context, command)
         child = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE, start_new_session=True,
                                  env={**os.environ, "LC_ALL": "C", "LANG": "C"})
@@ -177,6 +179,7 @@ def available_updates(settings):
         finally:
             child.stdout.close()
             child.stderr.close()
+            exit_code(context, child.returncode)
     parsed = parse_output(settings, {"exit_code": code, "stderr_bytes": stderr_bytes,
                                     "stdout": output.decode("utf-8", errors="strict")})
     if parsed.get("problem") != "none":
@@ -198,6 +201,7 @@ def read_simulation_output(child):
                     selector.unregister(key.fileobj)
                     continue
                 total += len(chunk)
+                tee(chunk, key.data)
                 if total > 1024 * 1024:
                     raise MaintenanceError("maintenance_reader_failed")
                 if key.data == "stdout":

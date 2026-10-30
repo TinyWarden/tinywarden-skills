@@ -4,6 +4,16 @@ from .apt_boot import installed_metadata, canonical_path
 from .apt_capacity import capacity
 from .apt_archives import protected_mirror_cache, acquisition, verify_inputs, mirror_sources
 from .apt_plan import resolve, selections
+from .logs import tee
+
+
+class NativeInstallProgress(apt.progress.base.InstallProgress):
+    """Retain native status/error text without changing PackageManager policy."""
+    def error(self, pkg, errormsg):
+        tee((str(pkg) + ": " + str(errormsg) + "\n").encode("utf-8", errors="replace"), "stderr")
+
+    def status_change(self, pkg, percent, status):
+        tee((str(pkg) + ": " + str(status) + "\n").encode("utf-8", errors="replace"), "stdout")
 
 
 def approved_plan(expected):
@@ -46,7 +56,7 @@ def apply(expected, on_start):
             verify_inputs(fetcher, plan, installed_metadata(cache), mirror_sources(cache))
             on_start()
             # SAME PackageManager. No acquire.run, repair, refetch or second native attempt.
-            result = cache.install_archives(pm, apt.progress.base.InstallProgress())
+            result = cache.install_archives(pm, NativeInstallProgress())
             if result != pm.RESULT_COMPLETED:
                 raise MaintenanceError('maintenance_apply_incomplete')
         audit()
