@@ -62,16 +62,12 @@ SDK to validate pending candidates without rewriting the public catalogue/pin.
 The default verifier still uses the pinned SDK and checks unchanged released
 identities outside `UNRELEASED.json`; candidate admission is a separate assertion.
 
-The released Updates Conservative upgrade keeps plan resolution, source/archive
-checks, boot/space/configuration policy and the native transaction in ordinary
-`skills/package-updates/actions/apt_*.py` modules. Use its declared schemas for
-review/results; adding domain fields does not require a platform renderer. Preserve
-the SDK inspection contract: no original plan is supplied, native locks remain held
-through `context.commit`, and inspection never retries application.
-Use the shared [action contract](https://github.com/TinyWarden/tinywarden/blob/main/docs/reference/skills/actions.md)
-for retained preparation effects and required nonnullable review-table sources/rows.
-These are generic platform contracts; existing Updates action code needs no
-package-specific reporting or table-rendering patch.
+Updates 1.3.0 uses standard APT commands, its own preview/receipts and the public
+`skill_actions` API. Keep domain commands in its package; the app uses action-local
+results and never gates them on other skills. SDK inspection receives no original
+plan and never retries application. The generic runtime, SDK lock and agent do not
+change for this package replacement. See the central human action reference for
+all methods/endpoints and approval semantics.
 
 Official packages use canonical `namespace/slug` IDs. The obsolete `alias` manifest
 field is not supported by the current SDK. Update package metadata with a new

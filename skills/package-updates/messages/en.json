@@ -721,64 +721,24 @@
     "text": "Refresh result",
     "parameters": {}
   },
-  "actions.reason.maintenance_input_invalid": {
-    "text": "APT input paths must be protected and owned by root.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_environment_invalid": {
-    "text": "The inherited APT environment is unsupported.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_hook_policy": {
-    "text": "APT update hooks need local review before this action can run.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_repository_policy": {
-    "text": "Repository settings do not meet the required signature and transport policy.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_package_policy": {
-    "text": "APT package settings need local review.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_download_sandbox": {
-    "text": "The APT download user or staging permissions need local review.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_refresh_timeout": {
-    "text": "Refreshing package lists stopped after its time or progress limit.",
-    "parameters": {}
-  },
   "actions.reason.maintenance_refresh_failed": {
     "text": "Refreshing package lists failed. Some indexes may have changed.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_adapter_failed": {
-    "text": "The package operation could not be verified. Review the server before retrying.",
     "parameters": {}
   },
   "actions.reason.maintenance_root_required": {
     "text": "This action requires explicit administrator trust on this server.",
     "parameters": {}
   },
-  "actions.reason.maintenance_lock_timeout": {
-    "text": "Another package operation is running.",
-    "parameters": {}
-  },
   "actions.reason.maintenance_receipt_invalid": {
-    "text": "The saved refresh result could not be verified.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_busy": {
-    "text": "Another package operation is running.",
+    "text": "The saved operation result could not be verified.",
     "parameters": {}
   },
   "actions.upgrade.name": {
-    "text": "Conservative upgrade",
+    "text": "Upgrade packages",
     "parameters": {}
   },
   "actions.upgrade.description": {
-    "text": "Refresh package lists and prepare upgrades of installed packages. Review and approve the exact plan before installation. Package scripts may run and services may restart.",
+    "text": "Preview ordinary apt-get upgrade using cached package lists, then approve it for this server. The package list is a preview: APT resolves it when the command runs. Holds are preserved; new packages, removals and downgrades are not allowed. Locally modified configuration files are kept and needrestart runs in list-only mode. Package scripts may restart services. No reboot or automatic repair runs.",
     "parameters": {}
   },
   "actions.upgrade.package_count": {
@@ -789,24 +749,12 @@
     "text": "Kept-back packages",
     "parameters": {}
   },
-  "actions.upgrade.download_bytes": {
-    "text": "Download size",
-    "parameters": {}
-  },
   "actions.upgrade.packages": {
     "text": "Packages to upgrade",
     "parameters": {}
   },
-  "actions.upgrade.kept_back": {
-    "text": "Kept-back packages",
-    "parameters": {}
-  },
   "actions.upgrade.name_field": {
     "text": "Package",
-    "parameters": {}
-  },
-  "actions.upgrade.architecture": {
-    "text": "Architecture",
     "parameters": {}
   },
   "actions.upgrade.installed_version": {
@@ -817,92 +765,12 @@
     "text": "New version",
     "parameters": {}
   },
-  "actions.upgrade.held": {
-    "text": "Held",
-    "parameters": {}
-  },
   "actions.upgrade.outcome": {
     "text": "Outcome",
     "parameters": {}
   },
-  "actions.upgrade.reboot_required": {
-    "text": "Reboot required",
-    "parameters": {}
-  },
-  "actions.upgrade.configuration_review": {
-    "text": "Configuration review required",
-    "parameters": {}
-  },
-  "actions.upgrade.services_restart_required": {
-    "text": "Service review required",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_download_failed": {
-    "text": "An approved archive could not be downloaded. No package installation was started.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_disk_space": {
-    "text": "A required destination lacks writable space or inodes. Review its filesystems before preparing again.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_repository_expired": {
-    "text": "Repository metadata has expired or its date cannot be verified. Refresh and prepare a new plan.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_download_required": {
-    "text": "The package operation stopped because its safety checks could not be confirmed.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_plan_changed": {
-    "text": "The plan or scope changed. Close this window, refresh the servers and prepare a new plan.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_reader_timeout": {
-    "text": "The package operation stopped because its safety checks could not be confirmed.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_plan_limit": {
-    "text": "The package operation stopped because its safety checks could not be confirmed.",
-    "parameters": {}
-  },
   "actions.reason.maintenance_reader_failed": {
-    "text": "The package operation stopped because its safety checks could not be confirmed.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_archive_method": {
-    "text": "This upgrade supports HTTP(S) package archives and protected local mirror lists containing HTTP(S) mirrors. Other methods need local operation.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_destination_invalid": {
-    "text": "A package destination has unsafe ownership or an ambiguous path. Review it locally.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_verification_failed": {
-    "text": "The installed state did not match the reviewed transaction. Review the server; do not repeat installation.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_apply_incomplete": {
-    "text": "The native package transaction did not complete. Changes may be partial; repair locally before recovery.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_boot_review_required": {
-    "text": "This transaction may update boot, kernel or initramfs state. The entire upgrade needs local review.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_selection_changed": {
-    "text": "Package selections changed during the transaction. Review the server before continuing.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_archive_invalid": {
-    "text": "An archive did not match its approved identity or safe cache requirements. Review it locally.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_metadata_invalid": {
-    "text": "The package operation stopped because its safety checks could not be confirmed.",
-    "parameters": {}
-  },
-  "actions.reason.maintenance_package_state": {
-    "text": "Package state needs local review. No automatic configure or repair is attempted.",
+    "text": "The APT upgrade preview or summary could not be read. Review the command output.",
     "parameters": {}
   },
   "actions.refresh.upgraded": {
@@ -921,10 +789,6 @@
     "text": "Kept back",
     "parameters": {}
   },
-  "actions.log.policy": {
-    "text": "Checking package-management policy.",
-    "parameters": {}
-  },
   "actions.log.refresh": {
     "text": "Refreshing package lists.",
     "parameters": {}
@@ -933,36 +797,32 @@
     "text": "Reading available updates without installing packages.",
     "parameters": {}
   },
-  "actions.log.verify_refresh": {
-    "text": "Checking the saved refresh result.",
-    "parameters": {}
-  },
-  "actions.log.package_state": {
-    "text": "Checking the installed package state.",
-    "parameters": {}
-  },
   "actions.log.plan": {
     "text": "Preparing the exact upgrade plan.",
-    "parameters": {}
-  },
-  "actions.log.capacity": {
-    "text": "Checking boot requirements, writable space and inodes.",
-    "parameters": {}
-  },
-  "actions.log.download": {
-    "text": "Staging the approved package archives.",
     "parameters": {}
   },
   "actions.log.apply": {
     "text": "Checking and applying the approved package plan.",
     "parameters": {}
   },
-  "actions.log.verify_upgrade": {
-    "text": "Checking installed versions against the saved receipt.",
-    "parameters": {}
-  },
   "actions.log.inspect": {
     "text": "Inspecting the saved operation without repeating it.",
+    "parameters": {}
+  },
+  "actions.upgrade.exit_code": {
+    "text": "APT exit code",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_upgrade_failed": {
+    "text": "apt-get upgrade exited with an error. Packages may have changed. Read the execution log for the native error.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_prerequisites": {
+    "text": "apt-get is unavailable on this server. Install the apt package before running this operation.",
+    "parameters": {}
+  },
+  "actions.reason.maintenance_refresh_summary_failed": {
+    "text": "Package lists were refreshed, but the upgrade summary could not be read. Review the command output.",
     "parameters": {}
   }
 }

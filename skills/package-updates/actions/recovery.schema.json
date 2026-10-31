@@ -7,7 +7,8 @@
         "refreshed",
         "failed",
         "interrupted",
-        "not_started"
+        "not_started",
+        "summary_failed"
       ],
       "maxLength": 32
     }

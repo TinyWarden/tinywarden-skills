@@ -7,7 +7,8 @@
         "refreshed",
         "failed",
         "interrupted",
-        "not_started"
+        "not_started",
+        "summary_failed"
       ],
       "maxLength": 32
     },
@@ -30,6 +31,16 @@
       "type": "integer",
       "minimum": 0,
       "maximum": 1000000
+    },
+    "refresh_exit": {
+      "type": "integer",
+      "minimum": -255,
+      "maximum": 255
+    },
+    "summary_exit": {
+      "type": "integer",
+      "minimum": -255,
+      "maximum": 255
     }
   },
   "required": [

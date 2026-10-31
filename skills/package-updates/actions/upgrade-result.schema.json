@@ -5,37 +5,21 @@
       "type": "string",
       "maxLength": 32,
       "enum": [
-        "Packages upgraded",
+        "Upgrade completed",
         "Nothing to upgrade",
         "Failed",
         "Outcome uncertain",
         "Not started"
       ]
     },
-    "kept_back_count": {
+    "exit_code": {
       "type": "integer",
-      "minimum": 0,
-      "maximum": 5000
-    },
-    "reboot_required": {
-      "type": "boolean",
-      "nullable": true
-    },
-    "configuration_review": {
-      "type": "boolean",
-      "nullable": true
-    },
-    "services_restart_required": {
-      "type": "boolean",
-      "nullable": true
+      "minimum": -255,
+      "maximum": 255
     }
   },
   "required": [
-    "outcome",
-    "kept_back_count",
-    "reboot_required",
-    "configuration_review",
-    "services_restart_required"
+    "outcome"
   ],
   "additionalProperties": false
 }
